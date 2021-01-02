@@ -1,3 +1,6 @@
+KERNEL=tunix
+IMAGE=${KERNEL}-image
+
 COMMON += -O2
 
 COMMON += -Wall

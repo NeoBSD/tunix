@@ -17,16 +17,16 @@ ARCHFLAGS += -target i386-pc-none-elf
 ARCHFLAGS += -ffreestanding
 
 # First rule is run by default
-os-image.bin: arch/x86/bootsect.bin kernel.bin
-	cat $^ > os-image.bin
+${IMAGE}.bin: arch/x86/bootsect.bin ${KERNEL}.bin
+	cat $^ > ${IMAGE}.bin
 
 # '--oformat binary' deletes all symbols as a collateral, so we don't need
 # to 'strip' them manually on this case
-kernel.bin: arch/x86/kernel_entry.o ${OBJ}
+${KERNEL}.bin: arch/x86/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
 
 # Used for debugging purposes
-kernel.elf: arch/x86/kernel_entry.o ${OBJ}
+${KERNEL}.elf: arch/x86/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^
 
 %.o: %.c ${HEADERS}
@@ -44,7 +44,7 @@ kernel.elf: arch/x86/kernel_entry.o ${OBJ}
 
 .PHONY: clean
 clean:
-	rm -rf *.bin *.dis *.o os-image.bin *.elf
+	rm -rf *.bin *.dis *.o ${IMAGE}.bin *.elf
 	rm -rf kernel/*.o driver/*.o arch/x86/*.o arch/x86/*.bin
 
 .PHONY: info
