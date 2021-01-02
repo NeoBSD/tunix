@@ -6,6 +6,8 @@ else
         include make/clang.mk
 endif
 
+include arch/${ARCH}/arch.mk
+
 CC_SRC += $(wildcard kernel/*.c driver/*.c)
 CXX_SRC += $(wildcard kernel/*.cc driver/*.cc)
 HEADERS += $(wildcard kernel/*.h driver/*.h)
@@ -13,18 +15,17 @@ HEADERS += $(wildcard kernel/*.h driver/*.h)
 OBJ += ${CC_SRC:.c=.o}
 OBJ += ${CXX_SRC:.cc=.o}
 
-ARCHFLAGS += -target i386-pc-none-elf
 
 .PHONY: all
-all: ${IMAGE}.bin ${KERNEL}.bin ${KERNEL}.elf
+all: info ${IMAGE}.bin ${KERNEL}.bin ${KERNEL}.elf
 
-${IMAGE}.bin: arch/x86/bootsect.bin ${KERNEL}.bin
+${IMAGE}.bin: arch/${ARCH}/bootsect.bin ${KERNEL}.bin
 	cat $^ > ${IMAGE}.bin
 
-${KERNEL}.bin: arch/x86/kernel_entry.o ${OBJ}
+${KERNEL}.bin: arch/${ARCH}/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
 
-${KERNEL}.elf: arch/x86/kernel_entry.o ${OBJ}
+${KERNEL}.elf: arch/${ARCH}/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^
 
 %.o: %.c ${HEADERS}
@@ -42,11 +43,12 @@ ${KERNEL}.elf: arch/x86/kernel_entry.o ${OBJ}
 .PHONY: clean
 clean:
 	rm -rf *.bin *.dis *.o ${IMAGE}.bin *.elf
-	rm -rf kernel/*.o driver/*.o arch/x86/*.o arch/x86/*.bin
+	rm -rf kernel/*.o driver/*.o arch/${ARCH}/*.o arch/${ARCH}/*.bin
 
 .PHONY: info
 info:
+	@echo "ARCH=${ARCH}"
 	@echo "CC=${CC}"
 	@echo "CXX=${CXX}"
 	@echo "LD=${LD}"
-	@echo "QEMU=${QEMU_X64}"
+	@echo "QEMU=${QEMU}"
