@@ -1,6 +1,6 @@
 
-CC_SRC = $(wildcard kernel/*.cc drivers/*.cc)
-HEADERS = $(wildcard kernel/*.h drivers/*.h)
+CC_SRC = $(wildcard kernel/*.cc driver/*.cc)
+HEADERS = $(wildcard kernel/*.h driver/*.h)
 OBJ = ${CC_SRC:.cc=.o}
 
 CC=clang
@@ -42,7 +42,7 @@ kernel.elf: arch/x86/kernel_entry.o ${OBJ}
 .PHONY: clean
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o arch/x86/*.bin drivers/*.o arch/x86/*.o
+	rm -rf kernel/*.o arch/x86/*.bin driver/*.o arch/x86/*.o
 
 .PHONY: info
 info:

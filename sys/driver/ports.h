@@ -24,37 +24,18 @@
  * DAMAGE.
  */
 
-#include "kernel/kernel.h"
+#ifndef TUNIX_DRIVER_PORTS_H
+#define TUNIX_DRIVER_PORTS_H
 
-#include "driver/ports.h"
+#include "sys/cdefs.h"
 
-void kernel_main() {
-  /* Screen cursor position: ask VGA control register (0x3d4) for bytes
-   * 14 = high byte of cursor and 15 = low byte of cursor. */
-  port_byte_out(0x3d4, 14); /* Requesting byte 14: high byte of cursor pos */
-  /* Data is returned in VGA data register (0x3d5) */
-  auto position = port_byte_in(0x3d5);
-  position = position << 8; /* high byte */
+TUNIX_BEGIN_EXTERN_C
 
-  port_byte_out(0x3d4, 15); /* requesting low byte */
-  position += port_byte_in(0x3d5);
+unsigned char port_byte_in(unsigned short port);
+void port_byte_out(unsigned short port, unsigned char data);
+unsigned short port_word_in(unsigned short port);
+void port_word_out(unsigned short port, unsigned short data);
 
-  /* VGA 'cells' consist of the character and its control data
-   * e.g. 'white on black background', 'red text on white bg', etc */
-  auto const offsetFromVGA = position * 2;
+TUNIX_END_EXTERN_C
 
-  /* Now you can examine both variables using gdb, since we still
-   * don't know how to print strings on screen. Run 'make debug' and
-   * on the gdb console:
-   * breakpoint kernel.c:21
-   * continue
-   * print position
-   * print offsetFromVGA
-   */
-
-  /* Let's write on the current cursor position, we already know how
-   * to do that */
-  char *vga = reinterpret_cast<char *>(0xb8000);
-  vga[offsetFromVGA] = 'T';
-  vga[offsetFromVGA + 1] = 0x0f; /* White text on black background */
-}
+#endif
