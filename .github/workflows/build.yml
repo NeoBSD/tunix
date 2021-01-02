@@ -19,4 +19,4 @@ jobs:
       run: DEBIAN_FRONTEND=noninteractive sudo apt install -y build-essential clang nasm
 
     - name: Build
-      run: CLANG=1 make build
+      run: CLANG=1 make all
