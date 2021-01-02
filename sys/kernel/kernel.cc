@@ -44,7 +44,7 @@ void kernel_main() {
 
   /* VGA 'cells' consist of the character and its control data
    * e.g. 'white on black background', 'red text on white bg', etc */
-  auto const offsetFromVGA = position * 2;
+  auto offsetFromVGA = position * 2;
 
   /* Now you can examine both variables using gdb, since we still
    * don't know how to print strings on screen. Run 'make debug' and
@@ -58,7 +58,11 @@ void kernel_main() {
   // Let's write on the current cursor position, we already know how
   // to do that
   auto *vga = reinterpret_cast<char *>(0xb8000);
-  vga[offsetFromVGA] = 'T';
-  /* White text on black background */
-  vga[offsetFromVGA + 1] = 0x0f;
+  char const text[] = "Tunix";
+  for (auto i = 0; i < 12; i += 1) {
+    auto const offset = offsetFromVGA;
+    vga[offset] = text[i];
+    vga[offset + 1] = 0x0f;
+    offsetFromVGA += 2;
+  }
 }
