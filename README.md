@@ -2,6 +2,27 @@
 
 Unix like toy operating system.
 
+## Quick Start
+
+Currently only building with clang is supported. The build-system expects `clang`, `clang++` and `ld.lld` to be present in `$PATH`. They can be changed in `sys/make/clang.mk`.
+
+### Dependencies
+
+- GNUMake
+- LLVM
+  - `clang`
+  - `clang++`
+  - `ld.lld`
+
+### Steps
+
+```sh
+CLANG=1 make all        # Build kernal & image
+CLANG=1 make clean      # Clean all build artifacts
+CLANG=1 make info       # Print env & config variables
+CLANG=1 make run        # Run image in qemu
+```
+
 ## Code Layout
 
 ```sh
@@ -15,9 +36,10 @@ sys                     # Root for all source code
 └── sys                 # System headers
 ```
 
-See [sys/arch/template/README.md](sys/arch/template/README.md) for details on platforms specific code.
+See [sys/arch/template](sys/arch/template) for details on platforms specific code.
 
 ## Resources
 
 - [github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
 - [FreeBSD Kernel Internals, Dr. Marshall Kirk McKusick](https://www.youtube.com/watch?v=nwbqBdghh6E)
+- [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
