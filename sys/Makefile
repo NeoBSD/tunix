@@ -6,9 +6,12 @@ else
         include make/clang.mk
 endif
 
-CXX_SRC = $(wildcard kernel/*.cc driver/*.cc)
-HEADERS = $(wildcard kernel/*.h driver/*.h)
-OBJ = ${CXX_SRC:.cc=.o}
+CC_SRC += $(wildcard kernel/*.c driver/*.c)
+CXX_SRC += $(wildcard kernel/*.cc driver/*.cc)
+HEADERS += $(wildcard kernel/*.h driver/*.h)
+
+OBJ += ${CC_SRC:.c=.o}
+OBJ += ${CXX_SRC:.cc=.o}
 
 ARCHFLAGS += -target i386-pc-none-elf
 ARCHFLAGS += -ffreestanding
@@ -26,10 +29,12 @@ kernel.bin: arch/x86/kernel_entry.o ${OBJ}
 kernel.elf: arch/x86/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^
 
-# Generic rules for wildcards
-# To make an object, always compile from its .cc
+%.o: %.c ${HEADERS}
+	${CC} ${ARCHFLAGS} ${CFLAGS} -c $< -o $@
+
 %.o: %.cc ${HEADERS}
 	${CXX} ${ARCHFLAGS} ${CXXFLAGS} -c $< -o $@
+
 
 %.o: %.asm
 	nasm $< -f elf -o $@

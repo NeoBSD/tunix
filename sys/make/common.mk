@@ -1,12 +1,17 @@
-CXXFLAGS += -std=c++17
-CXXFLAGS += -O2
+COMMON += -O2
 
-CXXFLAGS += -Wall
-CXXFLAGS += -Wextra
-CXXFLAGS += -Wpedantic
+COMMON += -Wall
+COMMON += -Wextra
+COMMON += -Wpedantic
 
 DEFINES += -DTUNIX
-CXXFLAGS += ${DEFINES}
-
 INCLUDES += -I${shell pwd}
-CXXFLAGS += ${INCLUDES}
+
+COMMON += ${DEFINES}
+COMMON += ${INCLUDES}
+
+CFLAGS += -std=c99
+CFLAGS += ${COMMON}
+
+CXXFLAGS += -std=c++17
+CXXFLAGS += ${COMMON}
