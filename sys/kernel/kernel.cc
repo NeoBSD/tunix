@@ -28,7 +28,8 @@
 
 #include "driver/ports.h"
 
-void kernel_main() {
+void kernel_main()
+{
   /* Screen cursor position: ask VGA control register (0x3d4) for bytes
    * 14 = high byte of cursor and 15 = low byte of cursor. */
   /* Requesting byte 14: high byte of cursor pos */
@@ -36,7 +37,7 @@ void kernel_main() {
 
   /* Data is returned in VGA data register (0x3d5) */
   auto position = static_cast<int>(port_byte_in(0x3d5));
-  position = position << 8; /* high byte */
+  position      = position << 8; /* high byte */
 
   /* requesting low byte */
   port_byte_out(0x3d4, 15);
@@ -57,12 +58,13 @@ void kernel_main() {
 
   // Let's write on the current cursor position, we already know how
   // to do that
-  auto *vga = reinterpret_cast<char *>(0xb8000);
+  auto* vga         = reinterpret_cast<char*>(0xb8000);
   char const text[] = "Tunix";
-  for (auto i = 0; i < 12; i += 1) {
+  for (auto i = 0; i < 12; i += 1)
+  {
     auto const offset = offsetFromVGA;
-    vga[offset] = text[i];
-    vga[offset + 1] = 0x0f;
+    vga[offset]       = text[i];
+    vga[offset + 1]   = 0x0f;
     offsetFromVGA += 2;
   }
 }

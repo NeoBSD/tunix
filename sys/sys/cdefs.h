@@ -28,7 +28,9 @@
 #define TUNIX_SYS_CDEFS_H
 
 #if defined(__cplusplus)
-#define TUNIX_BEGIN_EXTERN_C extern "C" {
+#define TUNIX_BEGIN_EXTERN_C                                                   \
+  extern "C"                                                                   \
+  {
 #define TUNIX_END_EXTERN_C }
 #else
 #define TUNIX_BEGIN_EXTERN_C

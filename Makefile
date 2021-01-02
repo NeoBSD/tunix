@@ -28,6 +28,11 @@ clean:
 	ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys clean
 	rm -rf ${BIN_DIR}
 
+.PHONY: format
+format:
+	find sys -iname '*.h' -o -iname '*.c' -o -iname '*.cc' | xargs clang-format -i
+
 .PHONY: info
 info:
 	ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys info
+
