@@ -31,12 +31,15 @@
 void kernel_main() {
   /* Screen cursor position: ask VGA control register (0x3d4) for bytes
    * 14 = high byte of cursor and 15 = low byte of cursor. */
-  port_byte_out(0x3d4, 14); /* Requesting byte 14: high byte of cursor pos */
+  /* Requesting byte 14: high byte of cursor pos */
+  port_byte_out(0x3d4, 14);
+
   /* Data is returned in VGA data register (0x3d5) */
-  auto position = port_byte_in(0x3d5);
+  auto position = static_cast<int>(port_byte_in(0x3d5));
   position = position << 8; /* high byte */
 
-  port_byte_out(0x3d4, 15); /* requesting low byte */
+  /* requesting low byte */
+  port_byte_out(0x3d4, 15);
   position += port_byte_in(0x3d5);
 
   /* VGA 'cells' consist of the character and its control data
@@ -52,9 +55,10 @@ void kernel_main() {
    * print offsetFromVGA
    */
 
-  /* Let's write on the current cursor position, we already know how
-   * to do that */
-  char *vga = reinterpret_cast<char *>(0xb8000);
+  // Let's write on the current cursor position, we already know how
+  // to do that
+  auto *vga = reinterpret_cast<char *>(0xb8000);
   vga[offsetFromVGA] = 'T';
-  vga[offsetFromVGA + 1] = 0x0f; /* White text on black background */
+  /* White text on black background */
+  vga[offsetFromVGA + 1] = 0x0f;
 }
