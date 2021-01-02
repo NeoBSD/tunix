@@ -49,7 +49,12 @@ See [sys/arch/template](sys/arch/template) for details on platforms specific cod
 ## Resources
 
 - [github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
-- [FreeBSD Kernel Internals, Dr. Marshall Kirk McKusick](https://www.youtube.com/watch?v=nwbqBdghh6E)
 - [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
+
+### YouTube
+
+- [FreeBSD Kernel Internals, Dr. Marshall Kirk McKusick](https://www.youtube.com/watch?v=nwbqBdghh6E)
 - [Fast IPC: L4 and Fast Interprocess Communication](https://www.youtube.com/watch?v=mRr1lCJse_I)
 - [Preemptive Scheduling: How to Share a Processor](https://www.youtube.com/watch?v=1hDCouuvers)
+- [Virtual Memory in the x86](https://www.youtube.com/watch?v=jkGZDb3100Q)
+- [Modern Page Tables: Multi-Level Paging](https://www.youtube.com/watch?v=pCgw4Pe-5jo)
