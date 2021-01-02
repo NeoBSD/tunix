@@ -8,15 +8,19 @@ Currently only building with clang is supported. The build-system expects `clang
 
 ### Dependencies
 
-- GNUMake
-- LLVM
-  - `clang`
-  - `clang++`
-  - `ld.lld`
+```sh
+# Debian/Ubuntu
+sudo apt install nasm clang build-essential
+
+# FreeBSD
+sudo pkg install gmake nasm
+```
 
 ### Steps
 
 ```sh
+# Replace make with gmake when compiling in BSD systems
+
 CLANG=1 make all        # Build kernal & image
 CLANG=1 make clean      # Clean all build artifacts
 CLANG=1 make info       # Print env & config variables
