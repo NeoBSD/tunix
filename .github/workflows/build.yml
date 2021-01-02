@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Get packages
-      run: DEBIAN_FRONTEND=noninteractive sudo apt install -y build-essential clang nasm
+      run: DEBIAN_FRONTEND=noninteractive sudo apt install -y build-essential clang lld nasm
 
     - name: Build
       run: CLANG=1 make all

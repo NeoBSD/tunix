@@ -14,7 +14,7 @@ Currently only building with clang is supported. The build-system expects `clang
 
 ```sh
 # Debian/Ubuntu
-sudo apt install nasm clang build-essential
+sudo apt install nasm clang lld build-essential
 
 # FreeBSD
 sudo pkg install gmake nasm
