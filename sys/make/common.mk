@@ -14,8 +14,10 @@ INCLUDES += -I${shell pwd}
 COMMON += ${DEFINES}
 COMMON += ${INCLUDES}
 
-CFLAGS += -std=c99
 CFLAGS += ${COMMON}
+CFLAGS += -std=c99
 
-CXXFLAGS += -std=c++17
 CXXFLAGS += ${COMMON}
+CXXFLAGS += -std=c++17
+CXXFLAGS += -fno-exceptions
+CXXFLAGS += -fno-rtti
