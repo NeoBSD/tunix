@@ -8,3 +8,6 @@
 bin
 build
 compile_commands.json
+*.bin
+*.o
+*.elf
