@@ -9,10 +9,8 @@ ${BIN_DIR}:
 
 .PHONY: kernel
 kernel: ${BIN_DIR}
-	${MAKE} -C sys tunix-image.bin tunix.bin tunix.elf
-	mv sys/tunix-image.bin ${BIN_DIR}
-	mv sys/tunix.bin ${BIN_DIR}
-	mv sys/tunix.elf ${BIN_DIR}
+	${MAKE} -C sys all
+	mv sys/tunix-image.bin sys/tunix.bin sys/tunix.elf ${BIN_DIR}
 
 .PHONY: run
 run:

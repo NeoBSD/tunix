@@ -14,18 +14,16 @@ OBJ += ${CC_SRC:.c=.o}
 OBJ += ${CXX_SRC:.cc=.o}
 
 ARCHFLAGS += -target i386-pc-none-elf
-ARCHFLAGS += -ffreestanding
 
-# First rule is run by default
+.PHONY: all
+all: ${IMAGE}.bin ${KERNEL}.bin ${KERNEL}.elf
+
 ${IMAGE}.bin: arch/x86/bootsect.bin ${KERNEL}.bin
 	cat $^ > ${IMAGE}.bin
 
-# '--oformat binary' deletes all symbols as a collateral, so we don't need
-# to 'strip' them manually on this case
 ${KERNEL}.bin: arch/x86/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
 
-# Used for debugging purposes
 ${KERNEL}.elf: arch/x86/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^
 
@@ -35,12 +33,11 @@ ${KERNEL}.elf: arch/x86/kernel_entry.o ${OBJ}
 %.o: %.cc ${HEADERS}
 	${CXX} ${ARCHFLAGS} ${CXXFLAGS} -c $< -o $@
 
-
 %.o: %.asm
-	nasm $< -f elf -o $@
+	${ASM} $< -f elf -o $@
 
 %.bin: %.asm
-	nasm $< -f bin -o $@
+	${ASM} $< -f bin -o $@
 
 .PHONY: clean
 clean:

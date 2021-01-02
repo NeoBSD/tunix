@@ -2,6 +2,7 @@ KERNEL=tunix
 IMAGE=${KERNEL}-image
 
 COMMON += -O2
+COMMON += -ffreestanding
 
 COMMON += -Wall
 COMMON += -Wextra
