@@ -1,19 +1,17 @@
+include make/common.mk
 
-CC_SRC = $(wildcard kernel/*.cc driver/*.cc)
+ifndef CLANG
+        include make/gcc.mk
+else
+        include make/clang.mk
+endif
+
+CXX_SRC = $(wildcard kernel/*.cc driver/*.cc)
 HEADERS = $(wildcard kernel/*.h driver/*.h)
-OBJ = ${CC_SRC:.cc=.o}
+OBJ = ${CXX_SRC:.cc=.o}
 
-CC=clang
-CXX=clang++
-LD=ld.lld
-# GDB = /usr/local/i386elfgcc/bin/i386-elf-gdb
-
-
-# -g: Use debugging symbols in gcc
-# CFLAGS  = -std=c99
-CFLAGS = -O0
-CFLAGS += -g
-CFLAGS += -I.
+ARCHFLAGS += -target i386-pc-none-elf
+ARCHFLAGS += -ffreestanding
 
 # First rule is run by default
 os-image.bin: arch/x86/bootsect.bin kernel.bin
@@ -31,7 +29,7 @@ kernel.elf: arch/x86/kernel_entry.o ${OBJ}
 # Generic rules for wildcards
 # To make an object, always compile from its .cc
 %.o: %.cc ${HEADERS}
-	${CXX} -target i386-pc-none-elf ${CFLAGS} -ffreestanding -c $< -o $@
+	${CXX} ${ARCHFLAGS} ${CXXFLAGS} -c $< -o $@
 
 %.o: %.asm
 	nasm $< -f elf -o $@
@@ -42,7 +40,7 @@ kernel.elf: arch/x86/kernel_entry.o ${OBJ}
 .PHONY: clean
 clean:
 	rm -rf *.bin *.dis *.o os-image.bin *.elf
-	rm -rf kernel/*.o arch/x86/*.bin driver/*.o arch/x86/*.o
+	rm -rf kernel/*.o driver/*.o arch/x86/*.o arch/x86/*.bin
 
 .PHONY: info
 info:
