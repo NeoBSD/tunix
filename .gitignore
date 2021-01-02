@@ -1,0 +1,10 @@
+# EDITOR
+.atom
+.idea
+.vs
+.vscode
+
+# BUILD
+bin
+build
+compile_commands.json
