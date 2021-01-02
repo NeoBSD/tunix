@@ -6,7 +6,7 @@ else
         include make/clang.mk
 endif
 
-include arch/${ARCH}/arch.mk
+include arch/${ARCH}/make/arch.mk
 
 CC_SRC += $(wildcard kernel/*.c driver/*.c)
 CXX_SRC += $(wildcard kernel/*.cc driver/*.cc)
@@ -19,13 +19,13 @@ OBJ += ${CXX_SRC:.cc=.o}
 .PHONY: all
 all: info ${IMAGE}.bin ${KERNEL}.bin ${KERNEL}.elf
 
-${IMAGE}.bin: arch/${ARCH}/bootsect.bin ${KERNEL}.bin
+${IMAGE}.bin: arch/${ARCH}/${ARCH}/bootsect.bin ${KERNEL}.bin
 	cat $^ > ${IMAGE}.bin
 
-${KERNEL}.bin: arch/${ARCH}/kernel_entry.o ${OBJ}
+${KERNEL}.bin: arch/${ARCH}/${ARCH}/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
 
-${KERNEL}.elf: arch/${ARCH}/kernel_entry.o ${OBJ}
+${KERNEL}.elf: arch/${ARCH}/${ARCH}/kernel_entry.o ${OBJ}
 	${LD} -o $@ -Ttext 0x1000 $^
 
 %.o: %.c ${HEADERS}
@@ -43,7 +43,7 @@ ${KERNEL}.elf: arch/${ARCH}/kernel_entry.o ${OBJ}
 .PHONY: clean
 clean:
 	rm -rf *.bin *.dis *.o ${IMAGE}.bin *.elf
-	rm -rf kernel/*.o driver/*.o arch/${ARCH}/*.o arch/${ARCH}/*.bin
+	rm -rf kernel/*.o driver/*.o arch/${ARCH}/${ARCH}/*.o arch/${ARCH}/${ARCH}/*.bin
 
 .PHONY: info
 info:
