@@ -25,7 +25,6 @@
  */
 
 #include "idt.h"
-#include "sys/libkern.h"
 
 #define IDT_ENTRIES 256
 idt_gate_t idt[IDT_ENTRIES];

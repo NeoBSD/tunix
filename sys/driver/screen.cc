@@ -132,9 +132,8 @@ int print_char(char c, int col, int row, char attr)
   {
     int i;
     for (i = 1; i < MAX_ROWS; i++)
-      memory_copy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
-                  (uint8_t*)(get_offset(0, i - 1) + VIDEO_ADDRESS),
-                  MAX_COLS * 2);
+      kmemcopy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
+               (uint8_t*)(get_offset(0, i - 1) + VIDEO_ADDRESS), MAX_COLS * 2);
 
     /* Blank last line */
     char* last_line

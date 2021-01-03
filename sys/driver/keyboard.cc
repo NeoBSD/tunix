@@ -28,8 +28,8 @@
 
 #include "screen.h"
 
-#include "kernel/kernel.h"
 #include "sys/function.h"
+#include "sys/kernel.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
 

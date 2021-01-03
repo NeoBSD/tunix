@@ -36,6 +36,8 @@ TUNIX_BEGIN_EXTERN_C
  */
 void kernel_main();
 
+void user_input(char* input);
+
 TUNIX_END_EXTERN_C
 
 #endif
