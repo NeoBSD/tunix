@@ -24,14 +24,23 @@
  * DAMAGE.
  */
 
-#include "sys/kernel.h"
+#ifndef TUNIX_KERNEL_KERNEL_H
+#define TUNIX_KERNEL_KERNEL_H
 
-#include "driver/screen.h"
+#include "sys/cdefs.h"
 
-void kernel_main()
-{
-  clear_screen();
-  kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0");
-}
+TUNIX_BEGIN_EXTERN_C
+
+/**
+ * @brief Kernel memcpy.
+ */
+void kmemcopy(char const* source, char* dest, int nbytes);
+
+/**
+ * @brief Kernel itoa.
+ */
+void kitoa(int n, char str[]);
+
+TUNIX_END_EXTERN_C
+
+#endif

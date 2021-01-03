@@ -24,14 +24,26 @@
  * DAMAGE.
  */
 
-#include "sys/kernel.h"
+#include "sys/libkern.h"
 
-#include "driver/screen.h"
-
-void kernel_main()
+void kmemcopy(char const* source, char* dest, int nbytes)
 {
-  clear_screen();
-  kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0");
+  for (int i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
+}
+
+void kitoa(int n, char str[])
+{
+  // K&R implementation
+  int sign = 0;
+  if ((sign = n) < 0) n = -n;
+
+  int i = 0;
+  do {
+    str[i++] = n % 10 + '0';
+  } while ((n /= 10) > 0);
+
+  if (sign < 0) str[i++] = '-';
+  str[i] = '\0';
+
+  /* TODO: implement "reverse" */
 }
