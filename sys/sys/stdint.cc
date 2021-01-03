@@ -24,32 +24,20 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_STDINT_H
-#define TUNIX_SYS_STDINT_H
+#include "sys/stdint.h"
 
-#include "sys/cdefs.h"
+// Sanity check for integer widths
+static_assert(sizeof(int8_t) == 1);
+static_assert(sizeof(uint8_t) == 1);
 
-TUNIX_BEGIN_EXTERN_C
+static_assert(sizeof(int16_t) == 2);
+static_assert(sizeof(uint16_t) == 2);
 
-typedef signed char int8_t;
-typedef signed short int16_t;
-typedef signed int int32_t;
-typedef signed long long int64_t;
+static_assert(sizeof(int32_t) == 4);
+static_assert(sizeof(uint32_t) == 4);
 
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned long long uint64_t;
+static_assert(sizeof(intptr_t) == sizeof(nullptr));
+static_assert(sizeof(uintptr_t) == sizeof(nullptr));
 
-typedef signed long intptr_t;
-typedef unsigned long uintptr_t;
-
-typedef signed long intmax_t;
-typedef unsigned long uintmax_t;
-
-#define low_16(address) (uint16_t)((address)&0xFFFF)
-#define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
-
-TUNIX_END_EXTERN_C
-
-#endif
+static_assert(sizeof(intmax_t) == sizeof(long));
+static_assert(sizeof(uintmax_t) == sizeof(unsigned long));
