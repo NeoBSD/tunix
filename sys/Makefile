@@ -44,7 +44,7 @@ ${KERNEL}.elf: arch/${ARCH}/${ARCH}/kernel_entry.o ${OBJ}
 .PHONY: clean
 clean:
 	rm -rf *.bin *.dis *.o ${IMAGE}.bin *.elf
-	rm -rf kernel/*.o driver/*.o arch/${ARCH}/${ARCH}/*.o arch/${ARCH}/${ARCH}/*.bin
+	rm -rf kernel/*.o sys/*.o driver/*.o arch/${ARCH}/${ARCH}/*.o arch/${ARCH}/${ARCH}/*.bin
 
 .PHONY: info
 info:

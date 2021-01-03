@@ -28,6 +28,7 @@
 #define TUNIX_KERNEL_KERNEL_H
 
 #include "sys/cdefs.h"
+
 TUNIX_BEGIN_EXTERN_C
 
 void kernel_main();

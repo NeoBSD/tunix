@@ -25,11 +25,14 @@
  */
 
 #include "kernel.h"
-#include "arch/x86/x86/isr.h"
-#include "driver/screen.h"
+
 #include "sys/mem.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
+
+#include "arch/x86/x86/isr.h"
+
+#include "driver/screen.h"
 
 void kernel_main()
 {
