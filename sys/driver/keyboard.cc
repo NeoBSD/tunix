@@ -33,8 +33,8 @@
 #include "sys/stdint.h"
 #include "sys/string.h"
 
-#include "arch/x86/x86/isr.h"
-#include "arch/x86/x86/ports.h"
+#include "arch/x86/include/isr.h"
+#include "arch/x86/include/ports.h"
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C

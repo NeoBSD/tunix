@@ -24,7 +24,7 @@
  * DAMAGE.
  */
 
-#include "idt.h"
+#include "arch/x86/include/idt.h"
 
 #define IDT_ENTRIES 256
 idt_gate_t idt[IDT_ENTRIES];

@@ -24,13 +24,15 @@
  * DAMAGE.
  */
 
-#include "isr.h"
+#include "arch/x86/include/isr.h"
+#include "arch/x86/include/idt.h"
+#include "arch/x86/include/ports.h"
+#include "arch/x86/include/timer.h"
+
+#include "sys/string.h"
+
 #include "driver/keyboard.h"
 #include "driver/screen.h"
-#include "idt.h"
-#include "ports.h"
-#include "sys/string.h"
-#include "timer.h"
 
 isr_t interrupt_handlers[256];
 

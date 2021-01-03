@@ -24,8 +24,9 @@
  * DAMAGE.
  */
 
-#include "timer.h"
-#include "ports.h"
+#include "arch/x86/include/timer.h"
+#include "arch/x86/include/ports.h"
+
 #include "sys/function.h"
 
 uint32_t tick = 0;

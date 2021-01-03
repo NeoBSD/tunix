@@ -25,9 +25,11 @@
  */
 
 #include "screen.h"
-#include "arch/x86/x86/ports.h"
+
 #include "sys/kernel_mem.h"
 #include "sys/stdint.h"
+
+#include "arch/x86/include/ports.h"
 
 /* Declaration of private functions */
 int get_cursor_offset();
