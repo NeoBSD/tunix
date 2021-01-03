@@ -8,7 +8,7 @@ Unix like toy operating system.
 
 ## Quick Start
 
-The build-system (Makefile) expects either `gcc`, `g++` and `ld` or `clang`, `clang++` and `ld.lld` to be present in `$PATH`. They can be changed in `sys/make/clang.mk` or `sys/make/gcc.mk`. `nasm` is always required.
+The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `sys/make/clang.mk` or `sys/make/gcc.mk`. `nasm` and `ld` are always required.
 
 ### Dependencies
 

@@ -1,3 +1,6 @@
+ASM=nasm
+LD=ld
+
 KERNEL=tunix
 IMAGE=${KERNEL}-image
 
