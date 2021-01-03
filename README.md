@@ -2,7 +2,7 @@
 
 Unix like toy operating system.
 
-|                                                              License                                                               |                              Unit test                              |                                 Issues                                  |
+|                                                              License                                                               |                              x86 Build                              |                                 Issues                                  |
 | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :---------------------------------------------------------------------: |
 | [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/neoBSD/tunix/blob/master/LICENSE) | ![Build](https://github.com/NeoBSD/tunix/workflows/Build/badge.svg) | ![GitHub issues](https://img.shields.io/github/issues/neoBSD/tunix.svg) |
 
