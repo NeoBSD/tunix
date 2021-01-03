@@ -41,14 +41,15 @@ make run        # Run image in qemu
 ## Code Layout
 
 ```sh
-sys                     # Root for all source code
-├── arch                # Platform specific boot & init
-│   ├── template        # Example for new platforms
-│   └── x86             # x86 implementation
-├── driver              # drivers
-├── kernel              # kernel
-├── make                # Makefile config
-└── sys                 # System headers
+.                           # Project root
+└── sys                     # Source code root
+    ├── arch                # Platform specific boot & init
+    │   ├── template        # Example for new platforms
+    │   └── x86             # x86 implementation
+    ├── driver              # Drivers
+    ├── kernel              # Kernel source
+    ├── make                # Makefile config
+    └── sys                 # System headers
 ```
 
 See [sys/arch/template](sys/arch/template) for details on platforms specific code.
