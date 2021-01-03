@@ -1,0 +1,22 @@
+name: GCC
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get packages
+      run: DEBIAN_FRONTEND=noninteractive sudo apt install -y build-essential nasm
+
+    - name: Build
+      run: make all
