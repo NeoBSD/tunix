@@ -24,31 +24,35 @@
  * DAMAGE.
  */
 
-#include "screen.h"
-#include "ports.h"
+#include "driver/screen.h"
+#include "driver/ports.h"
+
+#define VIDEO_ADDRESS reinterpret_cast<unsigned char*>(0xb8000)
+
+static constexpr auto MAX_ROWS       = 25;
+static constexpr auto MAX_COLS       = 80;
+static constexpr auto WHITE_ON_BLACK = 0x0f;
+static constexpr auto RED_ON_WHITE   = 0xf4;
+
+/* Screen i/o ports */
+static constexpr auto REG_SCREEN_CTRL = 0x3d4;
+static constexpr auto REG_SCREEN_DATA = 0x3d5;
 
 /* Declaration of private functions */
 void set_cursor_offset(int offset);
-int get_cursor_offset();
+[[nodiscard]] int get_cursor_offset();
 int print_char(char c, int col, int row, char attr);
-int get_offset(int col, int row);
-int get_offset_row(int offset);
-int get_offset_col(int offset);
+[[nodiscard]] int get_offset(int col, int row);
+[[nodiscard]] int get_offset_row(int offset);
+[[nodiscard]] int get_offset_col(int offset);
 
-/**********************************************************
- * Public Kernel API functions                            *
- **********************************************************/
+void kprint(char const* message) { kprint_at(message, -1, -1); }
 
-/**
- * Print a message on the specified location
- * If col, row, are negative, we will use the current offset
- */
 void kprint_at(char const* message, int col, int row)
 {
   /* Set cursor if col/row are negative */
   int offset;
-  if (col >= 0 && row >= 0)
-    offset = get_offset(col, row);
+  if (col >= 0 && row >= 0) { offset = get_offset(col, row); }
   else
   {
     offset = get_cursor_offset();
@@ -66,12 +70,6 @@ void kprint_at(char const* message, int col, int row)
     col = get_offset_col(offset);
   }
 }
-
-void kprint(char const* message) { kprint_at(message, -1, -1); }
-
-/**********************************************************
- * Private kernel functions                               *
- **********************************************************/
 
 /**
  * Innermost print function for our kernel, directly accesses the video memory
@@ -140,14 +138,12 @@ void set_cursor_offset(int offset)
 
 void clear_screen()
 {
-  int screen_size = MAX_COLS * MAX_ROWS;
-  int i;
-  unsigned char* screen = VIDEO_ADDRESS;
-
-  for (i = 0; i < screen_size; i++)
+  constexpr auto screen_size = MAX_COLS * MAX_ROWS;
+  for (auto i = 0; i < screen_size; i++)
   {
-    screen[i * 2]     = ' ';
-    screen[i * 2 + 1] = WHITE_ON_BLACK;
+    unsigned char* screen = VIDEO_ADDRESS;
+    screen[i * 2]         = ' ';
+    screen[i * 2 + 1]     = WHITE_ON_BLACK;
   }
   set_cursor_offset(get_offset(0, 0));
 }
