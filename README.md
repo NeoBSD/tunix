@@ -23,7 +23,7 @@ sudo pkg install gmake nasm
 ### Steps
 
 ```sh
-# Replace make with gmake when compiling in BSD systems
+# Replace make with gmake when compiling on BSD systems
 
 CLANG=1 make all        # Build kernal & image
 CLANG=1 make clean      # Clean all build artifacts
