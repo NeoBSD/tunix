@@ -24,7 +24,7 @@
  * DAMAGE.
  */
 
-#include "sys/mem.h"
+#include "sys/kernel_mem.h"
 
 void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes)
 {

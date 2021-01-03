@@ -25,7 +25,7 @@
  */
 
 #include "sys/kernel.h"
-#include "sys/mem.h"
+#include "sys/kernel_mem.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
 

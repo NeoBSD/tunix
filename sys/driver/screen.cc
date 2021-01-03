@@ -26,7 +26,7 @@
 
 #include "screen.h"
 #include "arch/x86/x86/ports.h"
-#include "sys/mem.h"
+#include "sys/kernel_mem.h"
 #include "sys/stdint.h"
 
 /* Declaration of private functions */
