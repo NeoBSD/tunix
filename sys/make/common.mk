@@ -7,6 +7,12 @@ IMAGE=${KERNEL}-image
 COMMON += -O2
 COMMON += -ffreestanding
 COMMON += -fno-pie
+COMMON += -fno-strict-aliasing
+COMMON += -mno-red-zone
+
+COMMON += -nostdlib
+COMMON += -nostartfiles
+COMMON += -nodefaultlibs
 
 COMMON += -Wall
 COMMON += -Wextra
