@@ -1,3 +1,5 @@
+
+
 /**
  * Copyright (c) 2021, Tobias Hienzsch
  * All rights reserved.
@@ -24,19 +26,16 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_MEM_H
-#define TUNIX_SYS_MEM_H
+#ifndef TUNIX_SYS_STDDEF_H
+#define TUNIX_SYS_STDDEF_H
 
-#include "sys/stddef.h"
-#include "sys/stdint.h"
+#include "sys/cdefs.h"
 
 TUNIX_BEGIN_EXTERN_C
 
-void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes);
-void kmemset(uint8_t* dest, uint8_t val, uint32_t len);
-
-/* At this stage there is no 'free' implemented. */
-uint32_t kmalloc(size_t size, int align, uint32_t* phys_addr);
+typedef __SIZE_TYPE__ size_t;
+typedef __PTRDIFF_TYPE__ ptrdiff_t;
 
 TUNIX_END_EXTERN_C
+
 #endif

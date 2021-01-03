@@ -24,24 +24,24 @@
  * DAMAGE.
  */
 
-#include "mem.h"
+#include "sys/mem.h"
 
 void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes)
 {
-  int i;
-  for (i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
+  for (int i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
 }
 
 void kmemset(uint8_t* dest, uint8_t val, uint32_t len)
 {
   uint8_t* temp = (uint8_t*)dest;
-  for (; len != 0; len--) *temp++ = val;
+  for (; len != 0; len--) { *temp++ = val; }
 }
 
 /* This should be computed at link time, but a hardcoded
  * value is fine for now. Remember that our kernel starts
  * at 0x1000 as defined on the Makefile */
 uint32_t free_mem_addr = 0x10000;
+
 /* Implementation is just a pointer to some free memory which
  * keeps growing */
 uint32_t kmalloc(size_t size, int align, uint32_t* phys_addr)

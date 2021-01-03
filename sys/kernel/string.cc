@@ -24,7 +24,7 @@
  * DAMAGE.
  */
 
-#include "string.h"
+#include "sys/string.h"
 #include "sys/stdint.h"
 
 /**
