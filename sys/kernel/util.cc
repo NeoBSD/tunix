@@ -26,18 +26,45 @@
 
 #include "sys/libkern.h"
 
+/* K&R */
+int kstrlen(char s[])
+{
+  int i = 0;
+  while (s[i] != '\0') ++i;
+  return i;
+}
+
+/* K&R */
+void kreverse(char s[])
+{
+  int c, i, j;
+  for (i = 0, j = kstrlen(s) - 1; i < j; i++, j--)
+  {
+    c    = s[i];
+    s[i] = s[j];
+    s[j] = c;
+  }
+}
+
 void kmemcopy(char const* source, char* dest, int nbytes)
 {
   for (int i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
 }
 
+void kmemset(char* dest, char val, unsigned len)
+{
+  char* temp = (char*)dest;
+  for (; len != 0; len--) *temp++ = val;
+}
+
+/**
+ * K&R implementation
+ */
 void kitoa(int n, char str[])
 {
-  // K&R implementation
-  int sign = 0;
+  int i, sign;
   if ((sign = n) < 0) n = -n;
-
-  int i = 0;
+  i = 0;
   do {
     str[i++] = n % 10 + '0';
   } while ((n /= 10) > 0);
@@ -45,5 +72,5 @@ void kitoa(int n, char str[])
   if (sign < 0) str[i++] = '-';
   str[i] = '\0';
 
-  /* TODO: implement "reverse" */
+  kreverse(str);
 }

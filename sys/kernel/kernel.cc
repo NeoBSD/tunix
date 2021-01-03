@@ -31,6 +31,7 @@
 
 #include "arch/x86/x86/idt.h"
 #include "arch/x86/x86/isr.h"
+#include "arch/x86/x86/timer.h"
 
 void kernel_main()
 {
@@ -45,7 +46,10 @@ void kernel_main()
   // }
 
   isr_install();
-  /* Test the interrupts */
-  __asm__ __volatile__("int $2");
-  __asm__ __volatile__("int $3");
+  // /* Test the interrupts */
+  // __asm__ __volatile__("int $2");
+  // __asm__ __volatile__("int $3");
+
+  asm volatile("sti");
+  init_timer(50);
 }

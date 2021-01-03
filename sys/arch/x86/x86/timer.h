@@ -24,30 +24,16 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_LIBKERN_H
-#define TUNIX_SYS_LIBKERN_H
+#ifndef TUNIX_ARCH_X86_X86_TIMER_H
+#define TUNIX_ARCH_X86_X86_TIMER_H
+
+#include "types.h"
 
 #include "sys/cdefs.h"
 
 TUNIX_BEGIN_EXTERN_C
 
-/**
- * @brief Kernel memcpy.
- */
-void kmemcopy(char const* source, char* dest, int nbytes);
-
-/**
- * @brief Kernel memcpy.
- */
-void kmemset(char* dest, char val, unsigned len);
-
-int kstrlen(char s[]);
-
-void kreverse(char s[]);
-/**
- * @brief Kernel itoa.
- */
-void kitoa(int n, char str[]);
+void init_timer(u32 freq);
 
 TUNIX_END_EXTERN_C
 
