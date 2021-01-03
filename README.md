@@ -2,13 +2,13 @@
 
 Unix like toy operating system.
 
-|                                                              License                                                               |                              x86 Build                              |                                 Issues                                  |
-| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/neoBSD/tunix/blob/master/LICENSE) | ![Build](https://github.com/NeoBSD/tunix/workflows/Build/badge.svg) | ![GitHub issues](https://img.shields.io/github/issues/neoBSD/tunix.svg) |
+|                                                              License                                                               |                              x86 Clang                              |                             x86 GCC                             |
+| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :-------------------------------------------------------------: |
+| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/neoBSD/tunix/blob/master/LICENSE) | ![Clang](https://github.com/NeoBSD/tunix/workflows/Clang/badge.svg) | ![GCC](https://github.com/NeoBSD/tunix/workflows/GCC/badge.svg) |
 
 ## Quick Start
 
-Currently only building with clang is supported. The build-system expects `clang`, `clang++` and `ld.lld` to be present in `$PATH`. They can be changed in `sys/make/clang.mk`.
+The build-system (Makefile) expects either `gcc`, `g++` and `ld` or `clang`, `clang++` and `ld.lld` to be present in `$PATH`. They can be changed in `sys/make/clang.mk` or `sys/make/gcc.mk`. `nasm` is always required.
 
 ### Dependencies
 
@@ -25,10 +25,17 @@ sudo pkg install gmake nasm
 ```sh
 # Replace make with gmake when compiling on BSD systems
 
+# clang
 CLANG=1 make all        # Build kernal & image
 CLANG=1 make clean      # Clean all build artifacts
 CLANG=1 make info       # Print env & config variables
 CLANG=1 make run        # Run image in qemu
+
+# gcc
+make all        # Build kernal & image
+make clean      # Clean all build artifacts
+make info       # Print env & config variables
+make run        # Run image in qemu
 ```
 
 ## Code Layout
