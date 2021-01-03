@@ -24,21 +24,36 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_X86_TYPES_H
-#define TUNIX_ARCH_X86_X86_TYPES_H
+#ifndef TUNIX_SYS_STDINT_H
+#define TUNIX_SYS_STDINT_H
 
 #include "sys/cdefs.h"
 
 TUNIX_BEGIN_EXTERN_C
 
-/* Instead of using 'chars' to allocate non-character bytes,
- * we will use these new type with no semantic meaning */
-typedef unsigned int uint32_t;
-typedef signed int int32_t;
-typedef unsigned short uint16_t;
-typedef signed short int16_t;
-typedef unsigned char uint8_t;
 typedef signed char int8_t;
+
+typedef signed short int16_t;
+
+typedef signed int int32_t;
+
+typedef signed long long int64_t;
+
+typedef unsigned char uint8_t;
+
+typedef unsigned short uint16_t;
+
+typedef unsigned int uint32_t;
+
+typedef unsigned long long uint64_t;
+
+typedef signed long intptr_t;
+
+typedef unsigned long uintptr_t;
+
+typedef signed long intmax_t;
+
+typedef unsigned long uintmax_t;
 
 #define low_16(address) (uint16_t)((address)&0xFFFF)
 #define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)

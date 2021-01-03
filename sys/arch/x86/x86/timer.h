@@ -27,9 +27,7 @@
 #ifndef TUNIX_ARCH_X86_X86_TIMER_H
 #define TUNIX_ARCH_X86_X86_TIMER_H
 
-#include "types.h"
-
-#include "sys/cdefs.h"
+#include "sys/stdint.h"
 
 TUNIX_BEGIN_EXTERN_C
 

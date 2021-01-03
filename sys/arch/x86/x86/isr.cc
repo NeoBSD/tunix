@@ -31,6 +31,7 @@
 #include "driver/screen.h"
 
 #include "sys/libkern.h"
+#include "sys/stdint.h"
 
 isr_t interrupt_handlers[256];
 

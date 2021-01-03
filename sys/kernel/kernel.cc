@@ -26,6 +26,7 @@
 
 #include "sys/kernel.h"
 #include "sys/libkern.h"
+#include "sys/stdint.h"
 
 #include "driver/screen.h"
 
@@ -35,6 +36,7 @@
 
 void kernel_main()
 {
+  // Clear text output from boot process.
   clear_screen();
   kprint("Tunix v0.1.0\n");
 
@@ -45,6 +47,7 @@ void kernel_main()
   __asm__ __volatile__("int $2");
   __asm__ __volatile__("int $3");
 
-  __asm__ __volatile__("sti");
-  init_timer(20);
+  // Hangs on clang builds
+  // __asm__ __volatile__("sti");
+  // init_timer(20);
 }
