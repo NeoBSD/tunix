@@ -25,6 +25,7 @@
  */
 
 #include "sys/kernel.h"
+#include "sys/libkern.h"
 
 #include "driver/screen.h"
 
@@ -32,6 +33,11 @@ void kernel_main()
 {
   clear_screen();
   kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0\n");
-  kprint("Tunix v0.1.0");
+
+  for (auto i = 0; i < 10; i++)
+  {
+    char str[255];
+    kitoa(i, str);
+    kprint_at(str, 0, i + 2);
+  }
 }
