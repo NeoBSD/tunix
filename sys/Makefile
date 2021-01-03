@@ -8,9 +8,9 @@ endif
 
 include arch/${ARCH}/make/arch.mk
 
-CC_SRC += $(wildcard kernel/*.c driver/*.c arch/${ARCH}/${ARCH}/*.c)
-CXX_SRC += $(wildcard kernel/*.cc driver/*.cc arch/${ARCH}/${ARCH}/*.cc)
-HEADERS += $(wildcard kernel/*.h driver/*.h arch/${ARCH}/${ARCH}/*.h)
+CC_SRC += $(wildcard kernel/*.c sys/*.c driver/*.c arch/${ARCH}/${ARCH}/*.c)
+CXX_SRC += $(wildcard kernel/*.cc sys/*.cc driver/*.cc arch/${ARCH}/${ARCH}/*.cc)
+HEADERS += $(wildcard kernel/*.h sys/*.h driver/*.h arch/${ARCH}/${ARCH}/*.h)
 
 OBJ += arch/${ARCH}/${ARCH}/interrupt.o
 OBJ += ${CC_SRC:.c=.o}
