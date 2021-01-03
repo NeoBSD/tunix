@@ -1,37 +1,10 @@
-/**
- * Copyright (c) 2021, Tobias Hienzsch
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * * Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
- * DAMAGE.
- */
-
 #include "isr.h"
-#include "idt.h"
-
-#include "driver/ports.h"
+#include "driver/keyboard.h"
 #include "driver/screen.h"
-
-#include "sys/libkern.h"
-#include "sys/stdint.h"
+#include "idt.h"
+#include "ports.h"
+#include "sys/string.h"
+#include "timer.h"
 
 isr_t interrupt_handlers[256];
 
@@ -144,14 +117,14 @@ char const* exception_messages[] = {
     "Reserved",
 };
 
-void isr_handler(registers_t r)
+void isr_handler(registers_t* r)
 {
   kprint("received interrupt: ");
   char s[3];
-  kitoa(r.int_no, s);
+  int_to_ascii(r->int_no, s);
   kprint(s);
   kprint("\n");
-  kprint(exception_messages[r.int_no]);
+  kprint(exception_messages[r->int_no]);
   kprint("\n");
 }
 
@@ -160,17 +133,27 @@ void register_interrupt_handler(uint8_t n, isr_t handler)
   interrupt_handlers[n] = handler;
 }
 
-void irq_handler(registers_t r)
+void irq_handler(registers_t* r)
 {
   /* After every interrupt we need to send an EOI to the PICs
    * or they will not send another interrupt again */
-  if (r.int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
-  port_byte_out(0x20, 0x20);                     /* master */
+  if (r->int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
+  port_byte_out(0x20, 0x20);                      /* master */
 
   /* Handle the interrupt in a more modular way */
-  if (interrupt_handlers[r.int_no] != 0)
+  if (interrupt_handlers[r->int_no] != 0)
   {
-    isr_t handler = interrupt_handlers[r.int_no];
+    isr_t handler = interrupt_handlers[r->int_no];
     handler(r);
   }
+}
+
+void irq_install()
+{
+  /* Enable interruptions */
+  __asm__ __volatile__("sti");
+  /* IRQ0: timer */
+  init_timer(50);
+  /* IRQ1: keyboard */
+  init_keyboard();
 }
