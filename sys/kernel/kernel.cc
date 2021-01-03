@@ -29,15 +29,23 @@
 
 #include "driver/screen.h"
 
+#include "arch/x86/x86/idt.h"
+#include "arch/x86/x86/isr.h"
+
 void kernel_main()
 {
   clear_screen();
   kprint("Tunix v0.1.0\n");
 
-  for (auto i = 0; i < 10; i++)
-  {
-    char str[255];
-    kitoa(i, str);
-    kprint_at(str, 0, i + 2);
-  }
+  // for (auto i = 0; i < 10; i++)
+  // {
+  //   char str[255];
+  //   kitoa(i, str);
+  //   kprint_at(str, 0, i + 2);
+  // }
+
+  isr_install();
+  /* Test the interrupts */
+  __asm__ __volatile__("int $2");
+  __asm__ __volatile__("int $3");
 }
