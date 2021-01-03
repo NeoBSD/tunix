@@ -3,6 +3,7 @@ IMAGE=${KERNEL}-image
 
 COMMON += -O2
 COMMON += -ffreestanding
+COMMON += -fno-pie
 
 COMMON += -Wall
 COMMON += -Wextra

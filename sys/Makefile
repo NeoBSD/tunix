@@ -23,10 +23,10 @@ ${IMAGE}.bin: arch/${ARCH}/${ARCH}/bootsect.bin ${KERNEL}.bin
 	cat $^ > ${IMAGE}.bin
 
 ${KERNEL}.bin: arch/${ARCH}/${ARCH}/kernel_entry.o ${OBJ}
-	${LD} -o $@ -Ttext 0x1000 $^ --oformat binary
+	${LD} ${LDFLAGS} -o $@ -Ttext 0x1000 $^ --oformat binary
 
 ${KERNEL}.elf: arch/${ARCH}/${ARCH}/kernel_entry.o ${OBJ}
-	${LD} -o $@ -Ttext 0x1000 $^
+	${LD} ${LDFLAGS} -o $@ -Ttext 0x1000 $^
 
 %.o: %.c ${HEADERS}
 	${CC} ${ARCHFLAGS} ${CFLAGS} -c $< -o $@

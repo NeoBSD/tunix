@@ -60,7 +60,7 @@ void kernel_main()
   // to do that
   auto* vga         = reinterpret_cast<char*>(0xb8000);
   char const text[] = "Tunix";
-  for (auto i = 0; i < 12; i += 1)
+  for (auto i = 0; i < 6; i += 1)
   {
     auto const offset = offsetFromVGA;
     vga[offset]       = text[i];
