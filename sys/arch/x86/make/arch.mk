@@ -1,1 +1,1 @@
-ARCHFLAGS += -target i386-pc-none-elf
+ARCHFLAGS += -target i386-pc-none-elf -m32
