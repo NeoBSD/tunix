@@ -10,10 +10,6 @@ COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
 COMMON += -mno-red-zone
 
-COMMON += -nostdlib
-COMMON += -nostartfiles
-COMMON += -nodefaultlibs
-
 COMMON += -Wall
 COMMON += -Wextra
 COMMON += -Wpedantic
@@ -31,3 +27,7 @@ CXXFLAGS += ${COMMON}
 CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
+
+LDFLAGS += -nostartfiles
+LDFLAGS += -nostdlib
+LDFLAGS += -nodefaultlibs
