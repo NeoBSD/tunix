@@ -1,5 +1,5 @@
 ARCH ?= x86
-QEMU=qemu-system-x86_64
+QEMU=qemu-system-i386
 
 BIN_DIR=bin
 

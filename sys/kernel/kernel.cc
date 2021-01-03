@@ -45,6 +45,6 @@ void kernel_main()
   __asm__ __volatile__("int $2");
   __asm__ __volatile__("int $3");
 
-  // __asm__ __volatile__("sti");
-  // init_timer(20);
+  __asm__ __volatile__("sti");
+  init_timer(20);
 }
