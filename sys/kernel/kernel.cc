@@ -28,6 +28,7 @@
 
 #include "sys/copyright.h"
 #include "sys/kernel_mem.h"
+#include "sys/param.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
 #include "sys/systm.h"
@@ -42,10 +43,8 @@ void kernel_main()
   irq_install();
 
   clear_screen();
-  printf("Tunix v0.1.0\n");
+  printf("Tunix 0.1.0\n");
   printf(TUNIX_COPYRIGHT);
-  kprint("END to halt the CPU\n");
-  kprint("PAGE to request a kmalloc()\n");
   kprint("\n> ");
 }
 
@@ -56,31 +55,47 @@ typedef void (*kshell_handle_t)(char const*);
 struct kshell_handler
 {
   char const* token       = nullptr;
+  char const* help        = nullptr;
   kshell_handle_t handler = nullptr;
 };
 
 constexpr kshell_handler handlers[] = {
     kshell_handler {
-        "END",
+        "CLEAR",
+        "clear dusplay",
+        [](char const*) { clear_screen(); },
+    },
+    kshell_handler {
+        "COPYRIGHT",
+        "print copyright",
+        [](char const*) { kprint(TUNIX_COPYRIGHT); },
+    },
+    kshell_handler {
+        "ECHO",
+        "print input to console",
+        [](char const* input) { printf("%s\n", input + 5); },
+    },
+    kshell_handler {
+        "EXIT",
+        "shutdown the system",
         [](char const*) {
           kprint("Stopping the CPU. Bye!\n");
           __asm__ __volatile__("hlt");
         },
     },
     kshell_handler {
-        "CLEAR",
-        [](char const*) { clear_screen(); },
+        "FALSE",
+        "test kernel assertions",
+        [](char const*) { TNX_KASSERT(1 == 2); },
     },
     kshell_handler {
         "UNAME",
+        "print os name",
         [](char const*) { kprint("tunix\n"); },
     },
     kshell_handler {
-        "COPYRIGHT",
-        [](char const*) { kprint(TUNIX_COPYRIGHT); },
-    },
-    kshell_handler {
         "PAGE",
+        "request page from kmalloc",
         [](char const*) {
           auto const size = uint32_t {1000};
           auto phys_addr  = uint32_t {0};
@@ -89,31 +104,51 @@ constexpr kshell_handler handlers[] = {
         },
     },
     kshell_handler {
-        "ECHO",
-        [](char const* input) { printf("%s\n", input); },
-    },
-    kshell_handler {
         "TRUE",
+        "test kernel assertions.",
         [](char const*) { TNX_KASSERT(true); },
     },
     kshell_handler {
-        "FALSE",
-        [](char const*) { TNX_KASSERT(1 == 2); },
+        "VERSION",
+        "print os version",
+        [](char const*) {
+          auto const major = TNX_VERSION_MAJOR;
+          auto const minor = TNX_VERSION_MINOR;
+          auto const patch = TNX_VERSION_PATCH;
+          printf("%d.%d.%d\n", major, minor, patch);
+        },
     },
 };
+
+TNX_NODISCARD bool starts_with(char const* str, char const* pre)
+{
+  auto const lenpre = strlen(pre);
+  auto const lenstr = strlen(str);
+  return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
+}
 
 }  // namespace
 
 void user_input(char const* input)
 {
-  if (strcmp(input, "LIST") == 0)
+  if (starts_with(input, "LIST"))
   {
     for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
   }
 
+  if (starts_with(input, "MAN"))
+  {
+    for (auto const& hnd : handlers)
+    {
+      auto const* token = hnd.token;
+      auto const* help  = hnd.help;
+      if (starts_with(input + 4, token)) { printf("%s: %s\n", token, help); }
+    }
+  }
+
   for (auto const& hnd : handlers)
   {
-    if (strcmp(input, hnd.token) == 0)
+    if (starts_with(input, hnd.token))
     {
       if (hnd.handler != nullptr) { hnd.handler(input); }
       break;
