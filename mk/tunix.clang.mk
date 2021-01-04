@@ -1,2 +1,2 @@
-CC	?=	clang
-CXX	?=	clang++
+CC	= clang
+CXX	= clang++

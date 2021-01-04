@@ -1,12 +1,12 @@
-include ${TOP}/config.mk
+include $(TOP)/config.mk
 
 ASM=nasm
 LD=ld
 
 KERNEL=tunix
-IMAGE=${KERNEL}-image
+IMAGE=$(KERNEL)-image
 
-COMMON += -O2
+COMMON += -O0
 COMMON += -ffreestanding
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
@@ -17,15 +17,15 @@ COMMON += -Wextra
 COMMON += -Wpedantic
 
 DEFINES += -DTUNIX
-INCLUDES += -I${shell pwd}
+INCLUDES += -I$(TOP)/sys
 
-COMMON += ${DEFINES}
-COMMON += ${INCLUDES}
+COMMON += $(DEFINES)
+COMMON += $(INCLUDES)
 
-CFLAGS += ${COMMON}
+CFLAGS += $(COMMON)
 CFLAGS += -std=c99
 
-CXXFLAGS += ${COMMON}
+CXXFLAGS += $(COMMON)
 CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
@@ -34,8 +34,11 @@ LDFLAGS += -nostartfiles
 LDFLAGS += -nostdlib
 LDFLAGS += -nodefaultlibs
 
+
+ifdef CLANG
+include $(TOP)/mk/tunix.clang.mk
+endif
+
 ifndef CLANG
-include ${TOP}/mk/tunix.gcc.mk
-else
-include ${TOP}/mk/tunix.clang.mk
+include $(TOP)/mk/tunix.gcc.mk
 endif
