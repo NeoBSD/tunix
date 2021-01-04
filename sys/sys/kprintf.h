@@ -71,7 +71,7 @@ TNX_BEGIN_EXTERN_C
  * function This function is declared here only. You have to write your custom
  * implementation somewhere \param character Character to output
  */
-void kprintf__internal_putchar(char character);
+void kprintf_internal_putchar(char character);
 
 /**
  * Tiny printf implementation

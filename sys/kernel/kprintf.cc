@@ -146,14 +146,14 @@ static inline void _out_null(char character, void* buffer, size_t idx,
   (void)maxlen;
 }
 
-// internal kprintf__internal_putchar wrapper
+// internal kprintf_internal_putchar wrapper
 static inline void _out_char(char character, void* buffer, size_t idx,
                              size_t maxlen)
 {
   (void)buffer;
   (void)idx;
   (void)maxlen;
-  if (character) { kprintf__internal_putchar(character); }
+  if (character) { kprintf_internal_putchar(character); }
 }
 
 // internal output function wrapper
@@ -1005,7 +1005,7 @@ int kfctprintf(void (*out)(char character, void* arg), void* arg,
   return ret;
 }
 
-void kprintf__internal_putchar(char character)
+void kprintf_internal_putchar(char character)
 {
   print_char(character, -1, -1, WHITE_ON_BLACK);
 }
