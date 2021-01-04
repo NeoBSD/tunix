@@ -95,6 +95,21 @@ int vprintf(char const* format, va_list va);
 int fctprintf(void (*out)(char character, void* arg), void* arg,
               char const* format, ...) TNX_PRINTF_FUNC(3, 4);
 
+/**
+ * @brief Kernel mode assertion macro.
+ */
+#if defined(TUNIX_OPT_KERNEL_ASSERT)
+#define TNX_KASSERT(pred)                                                      \
+  do {                                                                         \
+    if (!(pred))                                                               \
+    {                                                                          \
+      printf("%s:%s: %s - assert %s\n", __FILE__, __LINE__, __func__, #pred);  \
+    }                                                                          \
+  } while (0);
+#else
+#define TNX_KASSERT(pred) ((void)(pred))
+#endif
+
 TNX_END_EXTERN_C
 
 #endif  // TNX_SYS_SYSTM_H
