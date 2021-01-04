@@ -33,8 +33,8 @@
 #include "sys/stdint.h"
 #include "sys/string.h"
 
-#include "arch/x86/include/isr.h"
-#include "arch/x86/include/ports.h"
+#include "machine/isr.h"
+#include "machine/ports.h"
 
 namespace
 {

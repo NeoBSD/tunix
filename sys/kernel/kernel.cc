@@ -30,7 +30,7 @@
 #include "sys/stdint.h"
 #include "sys/string.h"
 
-#include "arch/x86/include/isr.h"
+#include "machine/isr.h"
 
 #include "driver/screen.h"
 

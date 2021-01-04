@@ -6,7 +6,7 @@ LD=ld
 KERNEL=tunix
 IMAGE=$(KERNEL)-image
 
-COMMON += -O0
+COMMON += -O1
 COMMON += -ffreestanding
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing

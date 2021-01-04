@@ -11,3 +11,4 @@ compile_commands.json
 *.bin
 *.o
 *.elf
+sys/machine

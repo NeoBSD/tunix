@@ -11,7 +11,10 @@ OBJ += $(CC_SRC:.c=.o)
 OBJ += $(CXX_SRC:.cc=.o)
 
 .PHONY: all
-all: $(IMAGE).bin $(KERNEL).bin $(KERNEL).elf
+all: machine $(IMAGE).bin $(KERNEL).bin $(KERNEL).elf
+
+machine:
+	ln -s arch/$(ARCH)/include $(TOP)/sys/$@
 
 $(IMAGE).bin: arch/$(ARCH)/$(ARCH)/bootsect.bin $(KERNEL).bin
 	cat $^ > $(IMAGE).bin
@@ -26,5 +29,6 @@ include $(TOP)/mk/tunix.compile.mk
 
 .PHONY: clean
 clean:
+	rm -f machine
 	rm -rf *.bin *.dis *.o $(IMAGE).bin *.elf
 	rm -rf kernel/*.o sys/*.o driver/*.o arch/$(ARCH)/$(ARCH)/*.o arch/$(ARCH)/$(ARCH)/*.bin

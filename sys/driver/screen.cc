@@ -29,7 +29,7 @@
 #include "sys/kernel_mem.h"
 #include "sys/stdint.h"
 
-#include "arch/x86/include/ports.h"
+#include "machine/ports.h"
 
 namespace
 {
