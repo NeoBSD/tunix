@@ -81,7 +81,7 @@
 #define TNX_USED __attribute__((used))
 
 /**
- * @brief Tell GCC how to check printf formats.
+ * @brief Tell the compiler how to check printf formats.
  */
 #if defined(__GNUC__)
 #define TNX_PRINTF_FUNC(a, b) __attribute__((__format__(__printf__, a, b)))
