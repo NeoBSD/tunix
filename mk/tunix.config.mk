@@ -6,11 +6,14 @@ LD=ld
 KERNEL=tunix
 IMAGE=$(KERNEL)-image
 
-COMMON += -O1
+COMMON += -O2
 COMMON += -ffreestanding
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
 COMMON += -mno-red-zone
+COMMON += -nostartfiles
+COMMON += -nostdlib
+COMMON += -static
 
 COMMON += -Wall
 COMMON += -Wextra
@@ -30,10 +33,10 @@ CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
 
-LDFLAGS += -nostartfiles
-LDFLAGS += -nostdlib
 LDFLAGS += -nodefaultlibs
+LDFLAGS += --no-undefined
 
+include $(TOP)/mk/tunix.sanitizer.mk
 
 ifdef CLANG
 include $(TOP)/mk/tunix.clang.mk
