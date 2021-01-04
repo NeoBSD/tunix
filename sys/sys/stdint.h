@@ -53,6 +53,24 @@ typedef __UINTMAX_TYPE__ uintmax_t;
 #define low_16(address) (uint16_t)((address)&0xFFFF)
 #define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
+TUNIX_STATIC_ASSERT(sizeof(int8_t) == 1);
+TUNIX_STATIC_ASSERT(sizeof(uint8_t) == 1);
+
+TUNIX_STATIC_ASSERT(sizeof(int16_t) == 2);
+TUNIX_STATIC_ASSERT(sizeof(uint16_t) == 2);
+
+TUNIX_STATIC_ASSERT(sizeof(int32_t) == 4);
+TUNIX_STATIC_ASSERT(sizeof(uint32_t) == 4);
+
+TUNIX_STATIC_ASSERT(sizeof(int64_t) == 8);
+TUNIX_STATIC_ASSERT(sizeof(uint64_t) == 8);
+
+TUNIX_STATIC_ASSERT(sizeof(intmax_t) == 8);
+TUNIX_STATIC_ASSERT(sizeof(uintmax_t) == 8);
+
+TUNIX_STATIC_ASSERT(sizeof(intptr_t) == sizeof(nullptr));
+TUNIX_STATIC_ASSERT(sizeof(uintptr_t) == sizeof(nullptr));
+
 TUNIX_END_EXTERN_C
 
 #endif
