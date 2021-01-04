@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TNX_SYS_SYSM_H
-#define TNX_SYS_SYSM_H
+#ifndef TNX_SYS_SYSTM_H
+#define TNX_SYS_SYSTM_H
 
 #include "sys/cdefs.h"
 #include "sys/stdarg.h"
@@ -97,4 +97,4 @@ int fctprintf(void (*out)(char character, void* arg), void* arg,
 
 TNX_END_EXTERN_C
 
-#endif  // TNX_SYS_SYSM_H
+#endif  // TNX_SYS_SYSTM_H

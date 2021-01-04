@@ -30,7 +30,7 @@
 #include "sys/kernel_mem.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
-#include "sys/sysm.h"
+#include "sys/systm.h"
 
 #include "machine/isr.h"
 
