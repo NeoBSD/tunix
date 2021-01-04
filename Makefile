@@ -33,5 +33,11 @@ format:
 
 .PHONY: info
 info:
-	ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys info
+	@echo "VER		=	0.1.0"
+	@echo "BIN		=	${BIN_DIR}"
+	@echo "ARCH		=	${ARCH}"
+	@echo "CC		=	${CC}"
+	@echo "CXX		=	${CXX}"
+	@echo "LD		=	${LD}"
+	@echo "QEMU		=	${QEMU}"
 
