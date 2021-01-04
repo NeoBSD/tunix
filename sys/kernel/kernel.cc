@@ -49,24 +49,63 @@ void kernel_main()
   kprint("\n> ");
 }
 
+namespace
+{
+typedef void (*kshell_handle_t)(char const*);
+
+struct kshell_handler
+{
+  char const* token       = nullptr;
+  kshell_handle_t handler = nullptr;
+};
+
+constexpr kshell_handler handlers[] = {
+    kshell_handler {
+        "END",
+        [](char const*) {
+          kprint("Stopping the CPU. Bye!\n");
+          __asm__ __volatile__("hlt");
+        },
+    },
+    kshell_handler {
+        "CLEAR",
+        [](char const*) { clear_screen(); },
+    },
+    kshell_handler {
+        "UNAME",
+        [](char const*) { kprint("tunix\n"); },
+    },
+    kshell_handler {
+        "COPYRIGHT",
+        [](char const*) { kprint(TUNIX_COPYRIGHT); },
+    },
+    kshell_handler {
+        "PAGE",
+        [](char const*) {
+          auto const size = uint32_t {1000};
+          auto phys_addr  = uint32_t {0};
+          auto const page = kmalloc(size, 1, &phys_addr);
+          printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
+        },
+    },
+    kshell_handler {
+        "ECHO",
+        [](char const* input) { printf("%s\n", input); },
+    },
+};
+
+}  // namespace
+
 void user_input(char const* input)
 {
-  if (strcmp(input, "END") == 0)
+  for (auto const& hnd : handlers)
   {
-    kprint("Stopping the CPU. Bye!\n");
-    __asm__ __volatile__("hlt");
+    if (strcmp(input, hnd.token) == 0)
+    {
+      if (hnd.handler != nullptr) { hnd.handler(input); }
+      break;
+    }
   }
 
-  if (strcmp(input, "PAGE") == 0)
-  {
-    auto const size = uint32_t {1000};
-    auto phys_addr  = uint32_t {0};
-    auto const page = kmalloc(size, 1, &phys_addr);
-    printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
-    kprint("> ");
-    return;
-  }
-
-  printf("you said: %s\n", input);
   kprint("> ");
 }
