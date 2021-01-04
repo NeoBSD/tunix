@@ -60,9 +60,8 @@
 #define TNX_SYS_KPRINTF_H
 
 #include "sys/cdefs.h"
+#include "sys/stdarg.h"
 #include "sys/stddef.h"
-
-#include <stdarg.h>
 
 TNX_BEGIN_EXTERN_C
 
