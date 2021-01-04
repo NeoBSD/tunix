@@ -31,13 +31,40 @@
 
 TNX_BEGIN_EXTERN_C
 
+/**
+ * @brief
+ */
 void int_to_ascii(int n, char* str);
+
+/**
+ * @brief
+ */
 void hex_to_ascii(int n, char* str);
+
+/**
+ * @brief
+ */
 void reverse(char* s);
-int strlen(char const* s);
+
+/**
+ * @brief
+ */
+TNX_NODISCARD int strlen(char const* s);
+
+/**
+ * @brief
+ */
 void backspace(char* s);
+
+/**
+ * @brief
+ */
 void append(char* s, char n);
-int strcmp(char const* s1, char const* s2);
+
+/**
+ * @brief
+ */
+TNX_NODISCARD int strcmp(char const* s1, char const* s2);
 
 TNX_END_EXTERN_C
 

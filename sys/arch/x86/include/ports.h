@@ -31,9 +31,24 @@
 
 TNX_BEGIN_EXTERN_C
 
-unsigned char port_byte_in(uint16_t port);
+/**
+ * @brief
+ */
+TNX_NODISCARD uint8_t port_byte_in(uint16_t port);
+
+/**
+ * @brief
+ */
 void port_byte_out(uint16_t port, uint8_t data);
-unsigned short port_word_in(uint16_t port);
+
+/**
+ * @brief
+ */
+TNX_NODISCARD uint16_t port_word_in(uint16_t port);
+
+/**
+ * @brief
+ */
 void port_word_out(uint16_t port, uint16_t data);
 
 TNX_END_EXTERN_C

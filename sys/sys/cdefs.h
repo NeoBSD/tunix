@@ -28,6 +28,12 @@
 #define TNX_SYS_CDEFS_H
 
 /**
+ * @brief Sometimes we want to keep parameters to a function for later use and
+ * this is a solution to avoid the 'unused parameter' compiler warning
+ */
+#define TNX_UNUSED(x) (void)(x)
+
+/**
  * @brief Check if C++ is enabled. i.e. Is the current translation unit a .cc
  * file
  */
@@ -48,9 +54,9 @@
 #define TNX_END_EXTERN_C
 #endif
 
-/*
- * Build-time assertion. Doesn't generate any code. The error message
- * on failure is less than ideal, but you can't have everything.
+/**
+ * @brief Build-time assertion. Doesn't generate any code. The error message on
+ * failure is less than ideal, but you can't have everything.
  */
 #if defined(TNX_CPP)
 #define TNX_STATIC_ASSERT(x) static_assert((x))
@@ -59,8 +65,17 @@
   ((void)sizeof(struct { unsigned : ((x) ? 1 : -1); }))
 #endif
 
-/*
- * Tell GCC how to check printf formats.
+/**
+ * @brief Warn if a return value is not used.
+ */
+#if defined(TNX_CPP)
+#define TNX_NODISCARD [[nodiscard]]
+#else
+#define TNX_NODISCARD __attribute__((warn_unused_result))
+#endif
+
+/**
+ * @brief Tell GCC how to check printf formats.
  */
 #if defined(__GNUC__)
 #define TNX_PRINTF_FUNC(a, b) __attribute__((__format__(__printf__, a, b)))
