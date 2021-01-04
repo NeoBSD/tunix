@@ -31,6 +31,10 @@
 
 TUNIX_BEGIN_EXTERN_C
 
+#ifndef __UINTPTR_TYPE__
+#error Your compiler does not provide fixed width type macros.
+#endif
+
 typedef __INT8_TYPE__ int8_t;
 typedef __INT16_TYPE__ int16_t;
 typedef __INT32_TYPE__ int32_t;
