@@ -41,12 +41,18 @@ void kernel_main()
   __asm__("int $2");
   __asm__("int $3");
 
+  char const* version = "Tunix v0.1.0\n";
+  char const* end     = "END to halt the CPU\n";
+  char const* page    = "PAGE to request a kmalloc()\n";
+
   clear_screen();
-  kprint("Type something, it will go through the kernel\n"
-         "Type END to halt the CPU or PAGE to request a kmalloc()\n> ");
+  kprint(version);
+  kprint(end);
+  kprint(page);
+  kprint("\n> ");
 }
 
-void user_input(char* input)
+void user_input(char const* input)
 {
   if (strcmp(input, "END") == 0)
   {
