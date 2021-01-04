@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_MEM_H
-#define TUNIX_SYS_MEM_H
+#ifndef TUNIX_SYS_KERNEL_MEM_H
+#define TUNIX_SYS_KERNEL_MEM_H
 
 #include "sys/stddef.h"
 #include "sys/stdint.h"

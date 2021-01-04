@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_KERNEL_KERNEL_H
-#define TUNIX_KERNEL_KERNEL_H
+#ifndef TUNIX_SYS_KERNEL_H
+#define TUNIX_SYS_KERNEL_H
 
 #include "sys/cdefs.h"
 

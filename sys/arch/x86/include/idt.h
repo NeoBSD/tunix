@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_X86_IDT_H
-#define TUNIX_ARCH_X86_X86_IDT_H
+#ifndef TUNIX_ARCH_X86_IDT_H
+#define TUNIX_ARCH_X86_IDT_H
 
 #include "sys/stdint.h"
 

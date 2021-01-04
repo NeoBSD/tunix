@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_X86_ISR_H
-#define TUNIX_ARCH_X86_X86_ISR_H
+#ifndef TUNIX_ARCH_X86_ISR_H
+#define TUNIX_ARCH_X86_ISR_H
 
 #include "sys/stdint.h"
 
