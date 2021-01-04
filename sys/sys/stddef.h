@@ -1,5 +1,3 @@
-
-
 /**
  * Copyright (c) 2021, Tobias Hienzsch
  * All rights reserved.
@@ -29,13 +27,7 @@
 #ifndef TUNIX_SYS_STDDEF_H
 #define TUNIX_SYS_STDDEF_H
 
-#include "sys/cdefs.h"
-
-TUNIX_BEGIN_EXTERN_C
-
 typedef __SIZE_TYPE__ size_t;
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
-
-TUNIX_END_EXTERN_C
 
 #endif
