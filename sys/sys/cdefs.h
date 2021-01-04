@@ -75,6 +75,12 @@
 #endif
 
 /**
+ * @brief Code must be emitted for the function even if it appears that the
+ * function is not referenced.
+ */
+#define TNX_USED __attribute__((used))
+
+/**
  * @brief Tell GCC how to check printf formats.
  */
 #if defined(__GNUC__)

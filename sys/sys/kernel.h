@@ -34,7 +34,7 @@ TNX_BEGIN_EXTERN_C
 /**
  * @brief Kernel main
  */
-void kernel_main();
+void kernel_main() TNX_USED;
 
 void user_input(char const* input);
 
