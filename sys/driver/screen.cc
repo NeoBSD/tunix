@@ -170,10 +170,13 @@ void kprint(char const* message) { kprint_at(message, -1, -1); }
 
 void kprint_backspace()
 {
-  int offset = get_cursor_offset() - 2;
-  int row    = get_offset_row(offset);
-  int col    = get_offset_col(offset);
-  print_char(0x08, col, row, WHITE_ON_BLACK);
+  if (auto const off = get_cursor_offset(); get_offset_col(off) > 2)
+  {
+    int newOffset = off - 2;
+    int row       = get_offset_row(newOffset);
+    int col       = get_offset_col(newOffset);
+    print_char(0x08, col, row, WHITE_ON_BLACK);
+  }
 }
 
 void clear_screen()
