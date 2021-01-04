@@ -30,10 +30,14 @@
 #include "sys/cdefs.h"
 TNX_BEGIN_EXTERN_C
 
+#define WHITE_ON_BLACK 0x0f
+#define RED_ON_WHITE 0xf4
+
 void clear_screen();
 void kprint_at(char const* message, int col, int row);
 void kprint(char const* message);
 void kprint_backspace();
+int print_char(char c, int col, int row, char attr);
 
 TNX_END_EXTERN_C
 

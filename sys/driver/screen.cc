@@ -33,11 +33,9 @@
 
 namespace
 {
-constexpr auto VIDEO_ADDRESS  = 0xb8000;
-constexpr auto MAX_ROWS       = 25;
-constexpr auto MAX_COLS       = 80;
-constexpr auto WHITE_ON_BLACK = 0x0f;
-constexpr auto RED_ON_WHITE   = 0xf4;
+constexpr auto VIDEO_ADDRESS = 0xb8000;
+constexpr auto MAX_ROWS      = 25;
+constexpr auto MAX_COLS      = 80;
 
 /* Screen i/o ports */
 constexpr auto REG_SCREEN_CTRL = 0x3d4;
@@ -77,6 +75,8 @@ void set_cursor_offset(int offset)
   port_byte_out(REG_SCREEN_CTRL, 15);
   port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset & 0xff));
 }
+
+}  // namespace
 
 /**
  * Innermost print function for our kernel, directly accesses the video memory
@@ -141,8 +141,6 @@ int print_char(char c, int col, int row, char attr)
   set_cursor_offset(offset);
   return offset;
 }
-
-}  // namespace
 
 void kprint_at(char const* message, int col, int row)
 {

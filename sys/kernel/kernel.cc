@@ -25,7 +25,9 @@
  */
 
 #include "sys/kernel.h"
+
 #include "sys/kernel_mem.h"
+#include "sys/kprintf.h"
 #include "sys/null.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
@@ -40,7 +42,7 @@ void kernel_main()
   irq_install();
 
   clear_screen();
-  kprint("Tunix v0.1.0\n");
+  kprintf("Tunix v0.1.0\n");
   kprint("END to halt the CPU\n");
   kprint("PAGE to request a kmalloc()\n");
   kprint("\n> ");
@@ -56,27 +58,14 @@ void user_input(char const* input)
 
   if (strcmp(input, "PAGE") == 0)
   {
-    /* Lesson 22: Code to test kmalloc, the rest is unchanged */
-    uint32_t const size = 1000;
-    char size_str[16]   = "";
-    int_to_ascii(size, &size_str[0]);
-    uint32_t phys_addr = 0;
-    uint32_t page      = kmalloc(size, 1, &phys_addr);
-    char page_str[16]  = "";
-    hex_to_ascii(page, page_str);
-    char phys_str[16] = "";
-    hex_to_ascii(phys_addr, phys_str);
-    kprint("page: ");
-    kprint(page_str);
-    kprint(", size: ");
-    kprint(size_str);
-    kprint(", physical address: ");
-    kprint(phys_str);
-    kprint("\n> ");
+    auto const size = uint32_t {1000};
+    auto phys_addr  = uint32_t {0};
+    auto const page = kmalloc(size, 1, &phys_addr);
+    kprintf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
+    kprint("> ");
     return;
   }
 
-  kprint("You said: ");
-  kprint(input);
-  kprint("\n> ");
+  kprintf("you said: %s\n", input);
+  kprint("> ");
 }
