@@ -1,3 +1,5 @@
+include ${TOP}/config.mk
+
 ASM=nasm
 LD=ld
 
@@ -31,3 +33,9 @@ CXXFLAGS += -fno-rtti
 LDFLAGS += -nostartfiles
 LDFLAGS += -nostdlib
 LDFLAGS += -nodefaultlibs
+
+ifndef CLANG
+include ${TOP}/mk/tunix.gcc.mk
+else
+include ${TOP}/mk/tunix.clang.mk
+endif

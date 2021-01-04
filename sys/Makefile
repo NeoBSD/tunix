@@ -1,11 +1,6 @@
-include make/common.mk
-
-ifndef CLANG
-        include make/gcc.mk
-else
-        include make/clang.mk
-endif
-
+PWD=${shell pwd}
+TOP=${PWD}/..
+include ${TOP}/mk/tunix.config.mk
 include arch/${ARCH}/make/arch.mk
 
 CC_SRC += $(wildcard kernel/*.c sys/*.c driver/*.c arch/${ARCH}/${ARCH}/*.c)

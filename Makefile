@@ -1,7 +1,6 @@
-ARCH ?= x86
-QEMU=qemu-system-i386
-
-BIN_DIR=bin
+PWD=${shell pwd}
+TOP=${PWD}
+include ${TOP}/mk/tunix.config.mk
 
 .PHONY: all
 all: kernel
