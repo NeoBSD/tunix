@@ -27,10 +27,10 @@
 #include "sys/kernel.h"
 
 #include "sys/kernel_mem.h"
-#include "sys/kprintf.h"
 #include "sys/null.h"
 #include "sys/stdint.h"
 #include "sys/string.h"
+#include "sys/sysm.h"
 
 #include "machine/isr.h"
 
@@ -42,7 +42,7 @@ void kernel_main()
   irq_install();
 
   clear_screen();
-  kprintf("Tunix v0.1.0\n");
+  printf("Tunix v0.1.0\n");
   kprint("END to halt the CPU\n");
   kprint("PAGE to request a kmalloc()\n");
   kprint("\n> ");
@@ -61,11 +61,11 @@ void user_input(char const* input)
     auto const size = uint32_t {1000};
     auto phys_addr  = uint32_t {0};
     auto const page = kmalloc(size, 1, &phys_addr);
-    kprintf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
+    printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
     kprint("> ");
     return;
   }
 
-  kprintf("you said: %s\n", input);
+  printf("you said: %s\n", input);
   kprint("> ");
 }

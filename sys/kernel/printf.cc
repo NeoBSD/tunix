@@ -31,7 +31,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "sys/kprintf.h"
+#include "sys/sysm.h"
 
 #include "sys/stdbool.h"
 #include "sys/stdint.h"
@@ -146,14 +146,14 @@ static inline void _out_null(char character, void* buffer, size_t idx,
   (void)maxlen;
 }
 
-// internal kprintf_internal_putchar wrapper
+// internal printf_internal_putchar wrapper
 static inline void _out_char(char character, void* buffer, size_t idx,
                              size_t maxlen)
 {
   (void)buffer;
   (void)idx;
   (void)maxlen;
-  if (character) { kprintf_internal_putchar(character); }
+  if (character) { printf_internal_putchar(character); }
 }
 
 // internal output function wrapper
@@ -954,7 +954,7 @@ static int _vsnprintf(out_fct_type out, char* buffer, const size_t maxlen,
 
 ///////////////////////////////////////////////////////////////////////////////
 
-int kprintf(const char* format, ...)
+int printf(const char* format, ...)
 {
   va_list va;
   va_start(va, format);
@@ -964,7 +964,7 @@ int kprintf(const char* format, ...)
   return ret;
 }
 
-int ksprintf(char* buffer, const char* format, ...)
+int sprintf(char* buffer, const char* format, ...)
 {
   va_list va;
   va_start(va, format);
@@ -973,7 +973,7 @@ int ksprintf(char* buffer, const char* format, ...)
   return ret;
 }
 
-int ksnprintf(char* buffer, size_t count, const char* format, ...)
+int snprintf(char* buffer, size_t count, const char* format, ...)
 {
   va_list va;
   va_start(va, format);
@@ -982,19 +982,19 @@ int ksnprintf(char* buffer, size_t count, const char* format, ...)
   return ret;
 }
 
-int kvprintf(const char* format, va_list va)
+int vprintf(const char* format, va_list va)
 {
   char buffer[1];
   return _vsnprintf(_out_char, buffer, (size_t)-1, format, va);
 }
 
-int kvsnprintf(char* buffer, size_t count, const char* format, va_list va)
+int vsnprintf(char* buffer, size_t count, const char* format, va_list va)
 {
   return _vsnprintf(_out_buffer, buffer, count, format, va);
 }
 
-int kfctprintf(void (*out)(char character, void* arg), void* arg,
-               const char* format, ...)
+int fctprintf(void (*out)(char character, void* arg), void* arg,
+              const char* format, ...)
 {
   va_list va;
   va_start(va, format);
@@ -1005,7 +1005,7 @@ int kfctprintf(void (*out)(char character, void* arg), void* arg,
   return ret;
 }
 
-void kprintf_internal_putchar(char character)
+void printf_internal_putchar(char character)
 {
   print_char(character, -1, -1, WHITE_ON_BLACK);
 }
