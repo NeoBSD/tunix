@@ -80,7 +80,7 @@ void kprintf__internal_putchar(char character);
  * \return The number of characters that are written into the array, not
  * counting the terminating null character
  */
-int kprintf(const char* format, ...);
+int kprintf(char const* format, ...) TNX_PRINTF_FUNC(1, 2);
 
 /**
  * Tiny sprintf implementation
@@ -91,22 +91,22 @@ int kprintf(const char* format, ...);
  * characters that are WRITTEN into the buffer, not counting the terminating
  * null character
  */
-int ksprintf(char* buffer, const char* format, ...);
+int ksprintf(char* buffer, char const* format, ...) TNX_PRINTF_FUNC(2, 3);
 
 /**
  * Tiny snprintf/vsnprintf implementation
- * \param buffer A pointer to the buffer where to store the formatted string
- * \param count The maximum number of characters to store in the buffer,
- * including a terminating null character \param format A string that specifies
+ * \param buf A pointer to the buffer where to store the formatted string
+ * \param num The maximum number of characters to store in the buffer,
+ * including a terminating null character \param fmt A string that specifies
  * the format of the output \param va A value identifying a variable arguments
  * list \return The number of characters that COULD have been written into the
  * buffer, not counting the terminating null character. A value equal or larger
- * than count indicates truncation. Only when the returned value is non-negative
- * and less than count, the string has been completely written.
+ * than num indicates truncation. Only when the returned value is non-negative
+ * and less than num, the string has been completely written.
  */
-int ksnprintf(char* buffer, size_t count, const char* format, ...);
-int kvsnprintf(char* buffer, size_t count, const char* format, va_list va);
-
+int kvsnprintf(char* buf, size_t num, char const* fmt, va_list va);
+int ksnprintf(char* buf, size_t num, char const* fmt, ...)
+    TNX_PRINTF_FUNC(3, 4);
 /**
  * Tiny vprintf implementation
  * \param format A string that specifies the format of the output
@@ -114,7 +114,7 @@ int kvsnprintf(char* buffer, size_t count, const char* format, va_list va);
  * \return The number of characters that are WRITTEN into the buffer, not
  * counting the terminating null character
  */
-int kvprintf(const char* format, va_list va);
+int kvprintf(char const* format, va_list va);
 
 /**
  * printf with output function
@@ -126,7 +126,7 @@ int kvprintf(const char* format, va_list va);
  * function, not counting the terminating null character
  */
 int kfctprintf(void (*out)(char character, void* arg), void* arg,
-               const char* format, ...);
+               char const* format, ...) TNX_PRINTF_FUNC(3, 4);
 
 TNX_END_EXTERN_C
 
