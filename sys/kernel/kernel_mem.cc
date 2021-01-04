@@ -37,6 +37,19 @@ void kmemset(uint8_t* dest, uint8_t val, uint32_t len)
   for (; len != 0; len--) { *temp++ = val; }
 }
 
+int memcmp(void const* s1, void const* s2, size_t n)
+{
+  if (n != 0)
+  {
+    auto const* p1 = reinterpret_cast<uint8_t const*>(s1);
+    auto const* p2 = reinterpret_cast<uint8_t const*>(s2);
+    do {
+      if (*p1++ != *p2++) { return (*--p1) - (*--p2); }
+    } while (--n != 0);
+  }
+  return 0;
+}
+
 /* This should be computed at link time, but a hardcoded
  * value is fine for now. Remember that our kernel starts
  * at 0x1000 as defined on the Makefile */

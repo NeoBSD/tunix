@@ -43,6 +43,11 @@ void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes);
 void kmemset(uint8_t* dest, uint8_t val, uint32_t len);
 
 /**
+ * @brief Compare memory regions.
+ */
+TNX_NODISCARD int memcmp(const void* s1, const void* s2, size_t n);
+
+/**
  * @brief At this stage there is no 'free' implemented.
  */
 TNX_NODISCARD uint32_t kmalloc(size_t size, int align, uint32_t* phys_addr);
