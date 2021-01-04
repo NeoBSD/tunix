@@ -24,49 +24,17 @@
  * DAMAGE.
  */
 
-#include "sys/kernel.h"
+#ifndef TNX_SYS_COPYRIGHT_H
+#define TNX_SYS_COPYRIGHT_H
 
-#include "sys/copyright.h"
-#include "sys/kernel_mem.h"
-#include "sys/stdint.h"
-#include "sys/string.h"
-#include "sys/sysm.h"
+/**
+ * @brief Add a Tunix vendor copyright here.
+ */
+#define TUNIX_COPYRIGHT_VENDOR ""
 
-#include "machine/isr.h"
+/**
+ * @brief Tunix copyright.
+ */
+#define TUNIX_COPYRIGHT "Copyright (c) 2021, Tobias Hienzsch\n"
 
-#include "driver/screen.h"
-
-void kernel_main()
-{
-  isr_install();
-  irq_install();
-
-  clear_screen();
-  printf("Tunix v0.1.0\n");
-  printf(TUNIX_COPYRIGHT);
-  kprint("END to halt the CPU\n");
-  kprint("PAGE to request a kmalloc()\n");
-  kprint("\n> ");
-}
-
-void user_input(char const* input)
-{
-  if (strcmp(input, "END") == 0)
-  {
-    kprint("Stopping the CPU. Bye!\n");
-    __asm__ __volatile__("hlt");
-  }
-
-  if (strcmp(input, "PAGE") == 0)
-  {
-    auto const size = uint32_t {1000};
-    auto phys_addr  = uint32_t {0};
-    auto const page = kmalloc(size, 1, &phys_addr);
-    printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
-    kprint("> ");
-    return;
-  }
-
-  printf("you said: %s\n", input);
-  kprint("> ");
-}
+#endif  // TNX_SYS_COPYRIGHT_H
