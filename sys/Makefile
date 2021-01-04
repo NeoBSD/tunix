@@ -1,6 +1,6 @@
 TOP=..
 include $(TOP)/mk/tunix.config.mk
-include arch/$(ARCH)/make/arch.mk
+include arch/$(ARCH)/mk/arch.mk
 
 CC_SRC  += $(wildcard kernel/*.c sys/*.c driver/*.c arch/$(ARCH)/$(ARCH)/*.c)
 CXX_SRC += $(wildcard kernel/*.cc sys/*.cc driver/*.cc arch/$(ARCH)/$(ARCH)/*.cc)

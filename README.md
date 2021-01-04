@@ -8,7 +8,7 @@ Unix like toy operating system.
 
 ## Quick Start
 
-The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `sys/make/clang.mk` or `sys/make/gcc.mk`. `nasm` and `ld` are always required.
+The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `mk/tunix.clang.mk` or `mk/tunix.gcc.mk`. `nasm` and `ld` are always required.
 
 ### Dependencies
 
@@ -42,13 +42,13 @@ make run        # Run image in qemu
 
 ```sh
 .                           # Project root
+├── mk                      # Makefile config
 └── sys                     # Source code root
     ├── arch                # Platform specific boot & init
     │   ├── template        # Example for new platforms
     │   └── x86             # x86 implementation
     ├── driver              # Drivers
     ├── kernel              # Kernel source
-    ├── make                # Makefile config
     └── sys                 # System headers
 ```
 
