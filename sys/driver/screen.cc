@@ -31,59 +31,52 @@
 
 #include "arch/x86/include/ports.h"
 
-/* Declaration of private functions */
-int get_cursor_offset();
-void set_cursor_offset(int offset);
-int print_char(char c, int col, int row, char attr);
-int get_offset(int col, int row);
-int get_offset_row(int offset);
-int get_offset_col(int offset);
-
-/**********************************************************
- * Public Kernel API functions                            *
- **********************************************************/
-
-/**
- * Print a message on the specified location
- * If col, row, are negative, we will use the current offset
- */
-void kprint_at(char const* message, int col, int row)
+namespace
 {
-  /* Set cursor if col/row are negative */
-  int offset;
-  if (col >= 0 && row >= 0)
-    offset = get_offset(col, row);
-  else
-  {
-    offset = get_cursor_offset();
-    row    = get_offset_row(offset);
-    col    = get_offset_col(offset);
-  }
+constexpr auto VIDEO_ADDRESS  = 0xb8000;
+constexpr auto MAX_ROWS       = 25;
+constexpr auto MAX_COLS       = 80;
+constexpr auto WHITE_ON_BLACK = 0x0f;
+constexpr auto RED_ON_WHITE   = 0xf4;
 
-  /* Loop through message and print it */
-  int i = 0;
-  while (message[i] != 0)
-  {
-    offset = print_char(message[i++], col, row, WHITE_ON_BLACK);
-    /* Compute row/col for next iteration */
-    row = get_offset_row(offset);
-    col = get_offset_col(offset);
-  }
+/* Screen i/o ports */
+constexpr auto REG_SCREEN_CTRL = 0x3d4;
+constexpr auto REG_SCREEN_DATA = 0x3d5;
+
+[[nodiscard]] int get_offset(int col, int row)
+{
+  return 2 * (row * MAX_COLS + col);
 }
 
-void kprint(char const* message) { kprint_at(message, -1, -1); }
+[[nodiscard]] int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
 
-void kprint_backspace()
+[[nodiscard]] int get_offset_col(int offset)
 {
-  int offset = get_cursor_offset() - 2;
-  int row    = get_offset_row(offset);
-  int col    = get_offset_col(offset);
-  print_char(0x08, col, row, WHITE_ON_BLACK);
+  return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2;
 }
 
-/**********************************************************
- * Private kernel functions                               *
- **********************************************************/
+[[nodiscard]] int get_cursor_offset()
+{
+  /* Use the VGA ports to get the current cursor position
+   * 1. Ask for high byte of the cursor offset (data 14)
+   * 2. Ask for low byte (data 15)
+   */
+  port_byte_out(REG_SCREEN_CTRL, 14);
+  int offset = port_byte_in(REG_SCREEN_DATA) << 8; /* High byte: << 8 */
+  port_byte_out(REG_SCREEN_CTRL, 15);
+  offset += port_byte_in(REG_SCREEN_DATA);
+  return offset * 2; /* Position * size of character cell */
+}
+
+void set_cursor_offset(int offset)
+{
+  /* Similar to get_cursor_offset, but instead of reading we write data */
+  offset /= 2;
+  port_byte_out(REG_SCREEN_CTRL, 14);
+  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset >> 8));
+  port_byte_out(REG_SCREEN_CTRL, 15);
+  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset & 0xff));
+}
 
 /**
  * Innermost print function for our kernel, directly accesses the video memory
@@ -149,46 +142,50 @@ int print_char(char c, int col, int row, char attr)
   return offset;
 }
 
-int get_cursor_offset()
+}  // namespace
+
+void kprint_at(char const* message, int col, int row)
 {
-  /* Use the VGA ports to get the current cursor position
-   * 1. Ask for high byte of the cursor offset (data 14)
-   * 2. Ask for low byte (data 15)
-   */
-  port_byte_out(REG_SCREEN_CTRL, 14);
-  int offset = port_byte_in(REG_SCREEN_DATA) << 8; /* High byte: << 8 */
-  port_byte_out(REG_SCREEN_CTRL, 15);
-  offset += port_byte_in(REG_SCREEN_DATA);
-  return offset * 2; /* Position * size of character cell */
+  /* Set cursor if col/row are negative */
+  int offset;
+  if (col >= 0 && row >= 0)
+    offset = get_offset(col, row);
+  else
+  {
+    offset = get_cursor_offset();
+    row    = get_offset_row(offset);
+    col    = get_offset_col(offset);
+  }
+
+  /* Loop through message and print it */
+  int i = 0;
+  while (message[i] != 0)
+  {
+    offset = print_char(message[i++], col, row, WHITE_ON_BLACK);
+    /* Compute row/col for next iteration */
+    row = get_offset_row(offset);
+    col = get_offset_col(offset);
+  }
 }
 
-void set_cursor_offset(int offset)
+void kprint(char const* message) { kprint_at(message, -1, -1); }
+
+void kprint_backspace()
 {
-  /* Similar to get_cursor_offset, but instead of reading we write data */
-  offset /= 2;
-  port_byte_out(REG_SCREEN_CTRL, 14);
-  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset >> 8));
-  port_byte_out(REG_SCREEN_CTRL, 15);
-  port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset & 0xff));
+  int offset = get_cursor_offset() - 2;
+  int row    = get_offset_row(offset);
+  int col    = get_offset_col(offset);
+  print_char(0x08, col, row, WHITE_ON_BLACK);
 }
 
 void clear_screen()
 {
-  int screen_size = MAX_COLS * MAX_ROWS;
-  int i;
-  uint8_t* screen = (uint8_t*)VIDEO_ADDRESS;
-
-  for (i = 0; i < screen_size; i++)
+  auto const screen_size = MAX_COLS * MAX_ROWS;
+  auto* const screen     = reinterpret_cast<uint8_t*>(VIDEO_ADDRESS);
+  for (auto i = 0; i < screen_size; i++)
   {
     screen[i * 2]     = ' ';
     screen[i * 2 + 1] = WHITE_ON_BLACK;
   }
   set_cursor_offset(get_offset(0, 0));
-}
-
-int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }
-int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
-int get_offset_col(int offset)
-{
-  return (offset - (get_offset_row(offset) * 2 * MAX_COLS)) / 2;
 }
