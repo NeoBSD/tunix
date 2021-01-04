@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_STRING_H
-#define TUNIX_SYS_STRING_H
+#ifndef TNX_SYS_STRING_H
+#define TNX_SYS_STRING_H
 
 #include "sys/cdefs.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 void int_to_ascii(int n, char* str);
 void hex_to_ascii(int n, char* str);
@@ -39,6 +39,6 @@ void backspace(char* s);
 void append(char* s, char n);
 int strcmp(char const* s1, char const* s2);
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

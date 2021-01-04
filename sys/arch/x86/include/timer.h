@@ -24,18 +24,18 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_TIMER_H
-#define TUNIX_ARCH_X86_TIMER_H
+#ifndef TNX_ARCH_X86_TIMER_H
+#define TNX_ARCH_X86_TIMER_H
 
 #include "isr.h"
 
 #include "sys/stdint.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 void timer_callback(registers_t* regs);
 void init_timer(uint32_t freq);
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

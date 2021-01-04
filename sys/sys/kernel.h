@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_KERNEL_H
-#define TUNIX_SYS_KERNEL_H
+#ifndef TNX_SYS_KERNEL_H
+#define TNX_SYS_KERNEL_H
 
 #include "sys/cdefs.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 /**
  * @brief Kernel main
@@ -38,6 +38,6 @@ void kernel_main();
 
 void user_input(char const* input);
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

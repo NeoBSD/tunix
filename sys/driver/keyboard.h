@@ -24,15 +24,15 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_DRIVER_KEYBOARD_H
-#define TUNIX_DRIVER_KEYBOARD_H
+#ifndef TNX_DRIVER_KEYBOARD_H
+#define TNX_DRIVER_KEYBOARD_H
 
 #include "sys/cdefs.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 void init_keyboard();
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

@@ -66,8 +66,8 @@ char key_buffer[256];
 
 static void keyboard_callback(registers_t* regs)
 {
-  TUNIX_UNUSED(regs);
-  TUNIX_UNUSED(sc_name);
+  TNX_UNUSED(regs);
+  TNX_UNUSED(sc_name);
 
   /* The PIC leaves us the scancode in port 0x60 */
   uint8_t scancode = port_byte_in(0x60);

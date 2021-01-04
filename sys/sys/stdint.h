@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_STDINT_H
-#define TUNIX_SYS_STDINT_H
+#ifndef TNX_SYS_STDINT_H
+#define TNX_SYS_STDINT_H
 
 #include "sys/cdefs.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 #ifndef __UINTPTR_TYPE__
 #error Your compiler does not provide fixed width type macros.
@@ -50,27 +50,27 @@ typedef __UINTPTR_TYPE__ uintptr_t;
 typedef __INTMAX_TYPE__ intmax_t;
 typedef __UINTMAX_TYPE__ uintmax_t;
 
+TNX_STATIC_ASSERT(sizeof(int8_t) == 1);
+TNX_STATIC_ASSERT(sizeof(uint8_t) == 1);
+
+TNX_STATIC_ASSERT(sizeof(int16_t) == 2);
+TNX_STATIC_ASSERT(sizeof(uint16_t) == 2);
+
+TNX_STATIC_ASSERT(sizeof(int32_t) == 4);
+TNX_STATIC_ASSERT(sizeof(uint32_t) == 4);
+
+TNX_STATIC_ASSERT(sizeof(int64_t) == 8);
+TNX_STATIC_ASSERT(sizeof(uint64_t) == 8);
+
+TNX_STATIC_ASSERT(sizeof(intmax_t) == 8);
+TNX_STATIC_ASSERT(sizeof(uintmax_t) == 8);
+
+TNX_STATIC_ASSERT(sizeof(intptr_t) == sizeof(nullptr));
+TNX_STATIC_ASSERT(sizeof(uintptr_t) == sizeof(nullptr));
+
 #define low_16(address) (uint16_t)((address)&0xFFFF)
 #define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
-TUNIX_STATIC_ASSERT(sizeof(int8_t) == 1);
-TUNIX_STATIC_ASSERT(sizeof(uint8_t) == 1);
-
-TUNIX_STATIC_ASSERT(sizeof(int16_t) == 2);
-TUNIX_STATIC_ASSERT(sizeof(uint16_t) == 2);
-
-TUNIX_STATIC_ASSERT(sizeof(int32_t) == 4);
-TUNIX_STATIC_ASSERT(sizeof(uint32_t) == 4);
-
-TUNIX_STATIC_ASSERT(sizeof(int64_t) == 8);
-TUNIX_STATIC_ASSERT(sizeof(uint64_t) == 8);
-
-TUNIX_STATIC_ASSERT(sizeof(intmax_t) == 8);
-TUNIX_STATIC_ASSERT(sizeof(uintmax_t) == 8);
-
-TUNIX_STATIC_ASSERT(sizeof(intptr_t) == sizeof(nullptr));
-TUNIX_STATIC_ASSERT(sizeof(uintptr_t) == sizeof(nullptr));
-
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

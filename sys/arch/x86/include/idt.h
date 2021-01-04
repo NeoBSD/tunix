@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_IDT_H
-#define TUNIX_ARCH_X86_IDT_H
+#ifndef TNX_ARCH_X86_IDT_H
+#define TNX_ARCH_X86_IDT_H
 
 #include "sys/stdint.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 /* Segment selectors */
 #define KERNEL_CS 0x08
@@ -61,6 +61,6 @@ typedef struct
 void set_idt_gate(int n, uint32_t handler);
 void set_idt();
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

@@ -24,38 +24,38 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_CDEFS_H
-#define TUNIX_SYS_CDEFS_H
+#ifndef TNX_SYS_CDEFS_H
+#define TNX_SYS_CDEFS_H
 
 /**
  * @brief Check if C++ is enabled. i.e. Is the current translation unit a .cc
  * file
  */
 #if defined(__cplusplus)
-#define TUNIX_CPP
+#define TNX_CPP
 #endif
 
 /**
  * @brief All headers should use this. Forces C linkage.
  */
-#if defined(TUNIX_CPP)
-#define TUNIX_BEGIN_EXTERN_C                                                   \
+#if defined(TNX_CPP)
+#define TNX_BEGIN_EXTERN_C                                                     \
   extern "C"                                                                   \
   {
-#define TUNIX_END_EXTERN_C }
+#define TNX_END_EXTERN_C }
 #else
-#define TUNIX_BEGIN_EXTERN_C
-#define TUNIX_END_EXTERN_C
+#define TNX_BEGIN_EXTERN_C
+#define TNX_END_EXTERN_C
 #endif
 
 /*
  * Build-time assertion. Doesn't generate any code. The error message
  * on failure is less than ideal, but you can't have everything.
  */
-#if defined(TUNIX_CPP)
-#define TUNIX_STATIC_ASSERT(x) static_assert((x))
+#if defined(TNX_CPP)
+#define TNX_STATIC_ASSERT(x) static_assert((x))
 #else
-#define TUNIX_STATIC_ASSERT(x)                                                 \
+#define TNX_STATIC_ASSERT(x)                                                   \
   ((void)sizeof(struct { unsigned : ((x) ? 1 : -1); }))
 #endif
 
@@ -63,9 +63,9 @@
  * Tell GCC how to check printf formats.
  */
 #if defined(__GNUC__)
-#define TUNIX_PRINTF_FUNC(a, b) __attribute__((__format__(__printf__, a, b)))
+#define TNX_PRINTF_FUNC(a, b) __attribute__((__format__(__printf__, a, b)))
 #else
-#define TUNIX_PRINTF_FUNC(a, b)
+#define TNX_PRINTF_FUNC(a, b)
 #endif
 
 #endif

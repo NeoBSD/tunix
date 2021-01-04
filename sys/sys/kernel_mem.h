@@ -24,13 +24,13 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_KERNEL_MEM_H
-#define TUNIX_SYS_KERNEL_MEM_H
+#ifndef TNX_SYS_KERNEL_MEM_H
+#define TNX_SYS_KERNEL_MEM_H
 
 #include "sys/stddef.h"
 #include "sys/stdint.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes);
 void kmemset(uint8_t* dest, uint8_t val, uint32_t len);
@@ -38,5 +38,5 @@ void kmemset(uint8_t* dest, uint8_t val, uint32_t len);
 /* At this stage there is no 'free' implemented. */
 uint32_t kmalloc(size_t size, int align, uint32_t* phys_addr);
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 #endif

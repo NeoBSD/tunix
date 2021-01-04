@@ -24,8 +24,8 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_NULL_H
-#define TUNIX_SYS_NULL_H
+#ifndef TNX_SYS_NULL_H
+#define TNX_SYS_NULL_H
 
 #ifndef NULL
 #if !defined(__cplusplus)

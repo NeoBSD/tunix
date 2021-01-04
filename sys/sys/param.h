@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_PARAM_H
-#define TUNIX_SYS_PARAM_H
+#ifndef TNX_SYS_PARAM_H
+#define TNX_SYS_PARAM_H
 
-#define TUNIX_VERSION_MAJOR 0
-#define TUNIX_VERSION_MINOR 1
-#define TUNIX_VERSION_PATCH 0
+#define TNX_VERSION_MAJOR 0
+#define TNX_VERSION_MINOR 1
+#define TNX_VERSION_PATCH 0
 
 #include "sys/null.h"
 

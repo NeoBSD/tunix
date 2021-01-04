@@ -24,17 +24,17 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_STDBOOL_H
-#define TUNIX_SYS_STDBOOL_H
+#ifndef TNX_SYS_STDBOOL_H
+#define TNX_SYS_STDBOOL_H
 
-#ifndef TUNIX_TRUE_AND_FALSE_ARE_DEFINED
+#ifndef TNX_TRUE_AND_FALSE_ARE_DEFINED
 #ifndef __cplusplus
 #define bool _Bool
 #define true 1
 #define false 0
 #endif /* __cplusplus */
 
-#define TUNIX_TRUE_AND_FALSE_ARE_DEFINED 1
+#define TNX_TRUE_AND_FALSE_ARE_DEFINED 1
 
 #endif
 

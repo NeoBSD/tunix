@@ -24,17 +24,17 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_DRIVER_SCREEN_H
-#define TUNIX_DRIVER_SCREEN_H
+#ifndef TNX_DRIVER_SCREEN_H
+#define TNX_DRIVER_SCREEN_H
 
 #include "sys/cdefs.h"
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 void clear_screen();
 void kprint_at(char const* message, int col, int row);
 void kprint(char const* message);
 void kprint_backspace();
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

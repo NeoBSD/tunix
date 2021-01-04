@@ -24,12 +24,12 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_ISR_H
-#define TUNIX_ARCH_X86_ISR_H
+#ifndef TNX_ARCH_X86_ISR_H
+#define TNX_ARCH_X86_ISR_H
 
 #include "sys/stdint.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 /* ISRs reserved for CPU exceptions */
 extern void isr0();
@@ -123,6 +123,6 @@ void irq_handler(registers_t* r);
 typedef void (*isr_t)(registers_t*);
 void register_interrupt_handler(uint8_t n, isr_t handler);
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

@@ -24,16 +24,16 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_ARCH_X86_TYPE_H
-#define TUNIX_ARCH_X86_TYPE_H
+#ifndef TNX_ARCH_X86_TYPE_H
+#define TNX_ARCH_X86_TYPE_H
 
 #include "sys/stdint.h"
 
-TUNIX_BEGIN_EXTERN_C
+TNX_BEGIN_EXTERN_C
 
 #define low_16(address) (uint16_t)((address)&0xFFFF)
 #define high_16(address) (uint16_t)(((address) >> 16) & 0xFFFF)
 
-TUNIX_END_EXTERN_C
+TNX_END_EXTERN_C
 
 #endif

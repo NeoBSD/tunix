@@ -24,11 +24,11 @@
  * DAMAGE.
  */
 
-#ifndef TUNIX_SYS_FUNCTION_H
-#define TUNIX_SYS_FUNCTION_H
+#ifndef TNX_SYS_FUNCTION_H
+#define TNX_SYS_FUNCTION_H
 
 /* Sometimes we want to keep parameters to a function for later use
  * and this is a solution to avoid the 'unused parameter' compiler warning */
-#define TUNIX_UNUSED(x) (void)(x)
+#define TNX_UNUSED(x) (void)(x)
 
 #endif
