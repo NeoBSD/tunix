@@ -11,7 +11,6 @@ COMMON += -ffreestanding
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
 COMMON += -mno-red-zone
-COMMON += -nostartfiles
 COMMON += -nostdlib
 COMMON += -static
 
