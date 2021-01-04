@@ -54,6 +54,24 @@ make run        # Run image in qemu
 
 See [sys/arch/template](sys/arch/template) for details on platforms specific code.
 
+## Languages
+
+- commit: **37d42af** 05.01.2021
+
+```sh
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C++                             10            195            451           1359
+Assembly                         9            142            270            461
+C/C++ Header                    18            133            599            322
+make                             9             36              3            112
+Markdown                         2             25              0             65
+-------------------------------------------------------------------------------
+SUM:                            48            531           1323           2319
+-------------------------------------------------------------------------------
+```
+
 ## Resources
 
 - [github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
