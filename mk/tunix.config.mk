@@ -15,6 +15,7 @@ COMMON += -nostartfiles
 COMMON += -nostdlib
 COMMON += -static
 
+COMMON += -Werror
 COMMON += -Wall
 COMMON += -Wextra
 COMMON += -Wpedantic
