@@ -66,3 +66,14 @@ See [sys/arch/template](sys/arch/template) for details on platforms specific cod
 - [Preemptive Scheduling: How to Share a Processor](https://www.youtube.com/watch?v=1hDCouuvers)
 - [Virtual Memory in the x86](https://www.youtube.com/watch?v=jkGZDb3100Q)
 - [Modern Page Tables: Multi-Level Paging](https://www.youtube.com/watch?v=pCgw4Pe-5jo)
+
+### BSD Source Code
+
+- [OpenBSD](https://github.com/openbsd/src)
+- [FreeBSD](https://github.com/freebsd/freebsd-src)
+- [NetBSD](https://github.com/NetBSD/src)
+- [Minix (3.1.8 latest without NetBSD userland)](https://github.com/Stichting-MINIX-Research-Foundation/minix/tree/R3.1.8)
+
+### RISCV
+
+- [Boot sequence: riscv-linux-boot](https://github.com/ultraembedded/riscv-linux-boot)
