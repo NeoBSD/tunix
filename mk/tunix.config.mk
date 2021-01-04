@@ -20,10 +20,12 @@ COMMON += -Wextra
 COMMON += -Wpedantic
 
 DEFINES += -DTUNIX
-INCLUDES += -I$(TOP)/sys
+COMMON  += $(DEFINES)
 
-COMMON += $(DEFINES)
-COMMON += $(INCLUDES)
+INCLUDES += -nostdinc
+INCLUDES += -I$(TOP)/sys
+COMMON   += $(INCLUDES)
+
 
 CFLAGS += $(COMMON)
 CFLAGS += -std=c99
