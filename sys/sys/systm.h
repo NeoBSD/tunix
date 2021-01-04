@@ -102,9 +102,7 @@ int fctprintf(void (*out)(char character, void* arg), void* arg,
 #define TNX_KASSERT(pred)                                                      \
   do {                                                                         \
     if (!(pred))                                                               \
-    {                                                                          \
-      printf("%s:%s: %s - assert %s\n", __FILE__, __LINE__, __func__, #pred);  \
-    }                                                                          \
+    { printf("%s:%d: %s - %s\n", __FILE__, __LINE__, __func__, #pred); }       \
   } while (0);
 #else
 #define TNX_KASSERT(pred) ((void)(pred))

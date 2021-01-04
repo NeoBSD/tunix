@@ -92,12 +92,25 @@ constexpr kshell_handler handlers[] = {
         "ECHO",
         [](char const* input) { printf("%s\n", input); },
     },
+    kshell_handler {
+        "TRUE",
+        [](char const*) { TNX_KASSERT(true); },
+    },
+    kshell_handler {
+        "FALSE",
+        [](char const*) { TNX_KASSERT(1 == 2); },
+    },
 };
 
 }  // namespace
 
 void user_input(char const* input)
 {
+  if (strcmp(input, "LIST") == 0)
+  {
+    for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
+  }
+
   for (auto const& hnd : handlers)
   {
     if (strcmp(input, hnd.token) == 0)
