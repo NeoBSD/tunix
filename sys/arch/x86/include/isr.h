@@ -31,7 +31,9 @@
 
 TNX_BEGIN_EXTERN_C
 
-/* ISRs reserved for CPU exceptions */
+/**
+ * @brief ISRs reserved for CPU exceptions.
+ */
 extern void isr0();
 extern void isr1();
 extern void isr2();
@@ -64,24 +66,10 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
-/* IRQ definitions */
-extern void irq0();
-extern void irq1();
-extern void irq2();
-extern void irq3();
-extern void irq4();
-extern void irq5();
-extern void irq6();
-extern void irq7();
-extern void irq8();
-extern void irq9();
-extern void irq10();
-extern void irq11();
-extern void irq12();
-extern void irq13();
-extern void irq14();
-extern void irq15();
 
+/**
+ * @brief IRQ definitions.
+ */
 #define IRQ0 32
 #define IRQ1 33
 #define IRQ2 34
@@ -99,28 +87,84 @@ extern void irq15();
 #define IRQ14 46
 #define IRQ15 47
 
-/* Struct which aggregates many registers.
- * It matches exactly the pushes on interrupt.asm. From the bottom:
+extern void irq0();
+extern void irq1();
+extern void irq2();
+extern void irq3();
+extern void irq4();
+extern void irq5();
+extern void irq6();
+extern void irq7();
+extern void irq8();
+extern void irq9();
+extern void irq10();
+extern void irq11();
+extern void irq12();
+extern void irq13();
+extern void irq14();
+extern void irq15();
+
+/**
+ * @brief Struct which aggregates many registers. It matches exactly the pushes
+ * on interrupt.asm.
+ *
+ * @details From the bottom:
  * - Pushed by the processor automatically
  * - `push byte`s on the isr-specific code: error code, then int number
  * - All the registers by pusha
  * - `push eax` whose lower 16-bits contain DS
  */
-typedef struct
+struct registers_t
 {
-  uint32_t ds; /* Data segment selector */
-  uint32_t edi, esi, ebp, useless, ebx, edx, ecx, eax; /* Pushed by pusha. */
-  uint32_t int_no,
-      err_code; /* Interrupt number and error code (if applicable) */
-  uint32_t eip, cs, eflags, esp, ss; /* Pushed by the processor automatically */
-} registers_t;
+  /**
+   * @brief Data segment selector
+   */
+  uint32_t ds;
 
+  /**
+   * @brief Pushed by pusha.
+   */
+  uint32_t edi, esi, ebp, useless, ebx, edx, ecx, eax;
+
+  /**
+   * @brief Interrupt number and error code (if applicable)
+   */
+  uint32_t int_no, err_code;
+
+  /**
+   * @brief Pushed by the processor automatically
+   */
+  uint32_t eip, cs, eflags, esp, ss;
+};
+
+/**
+ * @brief
+ */
 void isr_install();
+
+/**
+ * @brief
+ */
 void isr_handler(registers_t* r) TNX_USED;
+
+/**
+ * @brief
+ */
 void irq_install();
+
+/**
+ * @brief
+ */
 void irq_handler(registers_t* r) TNX_USED;
 
+/**
+ * @brief
+ */
 typedef void (*isr_t)(registers_t*);
+
+/**
+ * @brief
+ */
 void register_interrupt_handler(uint8_t n, isr_t handler);
 
 TNX_END_EXTERN_C

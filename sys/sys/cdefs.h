@@ -81,6 +81,11 @@
 #endif
 
 /**
+ * @brief Disable padding in structures.
+ */
+#define TNX_PACKED __attribute__((packed))
+
+/**
  * @brief Code must be emitted for the function even if it appears that the
  * function is not referenced.
  */

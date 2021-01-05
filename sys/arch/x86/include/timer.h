@@ -33,7 +33,9 @@
 
 TNX_BEGIN_EXTERN_C
 
-void timer_callback(registers_t* regs);
+/**
+ * @brief
+ */
 void init_timer(uint32_t freq);
 
 TNX_END_EXTERN_C

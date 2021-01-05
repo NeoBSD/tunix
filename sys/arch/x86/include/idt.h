@@ -31,34 +31,63 @@
 
 TNX_BEGIN_EXTERN_C
 
-/* Segment selectors */
+/**
+ * @brief Segment selectors
+ */
 #define KERNEL_CS 0x08
 
-/* How every interrupt gate (handler) is defined */
-typedef struct
+/**
+ * @brief How every interrupt gate (handler) is defined.
+ */
+struct idt_gate_t
 {
-  uint16_t low_offset; /* Lower 16 bits of handler function address */
-  uint16_t sel;        /* Kernel segment selector */
+  /**
+   * @brief Lower 16 bits of handler function address
+   */
+  uint16_t low_offset;
+
+  /**
+   * @brief Kernel segment selector
+   */
+  uint16_t sel;
+
+  /**
+   * @brief Always set to zero.
+   */
   uint8_t always0;
-  /* First byte
-   * Bit 7: "Interrupt is present"
+
+  /**
+   * @details Bit 7: "Interrupt is present"
    * Bits 6-5: Privilege level of caller (0=kernel..3=user)
    * Bit 4: Set to 0 for interrupt gates
-   * Bits 3-0: bits 1110 = decimal 14 = "32 bit interrupt gate" */
+   * Bits 3-0: bits 1110 = decimal 14 = "32 bit interrupt gate"
+   */
   uint8_t flags;
-  uint16_t high_offset; /* Higher 16 bits of handler function address */
-} __attribute__((packed)) idt_gate_t;
 
-/* A pointer to the array of interrupt handlers.
- * Assembly instruction 'lidt' will read it */
-typedef struct
+  /**
+   * @brief Higher 16 bits of handler function address.
+   */
+  uint16_t high_offset;
+} TNX_PACKED;
+
+/**
+ * @brief A pointer to the array of interrupt handlers. Assembly instruction
+ * 'lidt' will read it.
+ */
+struct idt_register_t
 {
   uint16_t limit;
   uint32_t base;
-} __attribute__((packed)) idt_register_t;
+} TNX_PACKED;
 
-/* Functions implemented in idt.c */
+/**
+ * @brief
+ */
 void set_idt_gate(int n, uint32_t handler);
+
+/**
+ * @brief
+ */
 void set_idt();
 
 TNX_END_EXTERN_C
