@@ -33,6 +33,7 @@ CXXFLAGS += $(COMMON)
 CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
+CXXFLAGS += -fno-threadsafe-statics
 
 LDFLAGS += -nodefaultlibs
 LDFLAGS += -nolibc
