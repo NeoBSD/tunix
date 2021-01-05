@@ -40,11 +40,12 @@ namespace
 {
 void ls_entry_point(char const*);
 void man_entry_point(char const*);
+void malloc_entry_point(char const*);
 
-constexpr kshell_command entry_points[] = {
+constexpr kshell_command commands[] = {
     kshell_command {
         "CLEAR",
-        "clear dusplay",
+        "clear display",
         [](char const*) { clear_screen(); },
     },
     kshell_command {
@@ -58,14 +59,6 @@ constexpr kshell_command entry_points[] = {
         [](char const* input) { printf("%s\n", input + 5); },
     },
     kshell_command {
-        "EXIT",
-        "shutdown the system",
-        [](char const*) {
-          kprint("Bye!\n");
-          cpu_halt();
-        },
-    },
-    kshell_command {
         "FALSE",
         "test kernel assertions",
         [](char const*) { TNX_KASSERT(1 == 2); },
@@ -76,29 +69,32 @@ constexpr kshell_command entry_points[] = {
         ls_entry_point,
     },
     kshell_command {
+        "MALLOC",
+        "request page from kmalloc",
+        malloc_entry_point,
+    },
+    kshell_command {
         "MAN",
         "show program help",
         man_entry_point,
     },
     kshell_command {
-        "PAGE",
-        "request page from kmalloc",
+        "SHUTDOWN",
+        "shutdown the system",
         [](char const*) {
-          auto phys_addr   = uintptr_t {0};
-          auto const size  = uint32_t {1000};
-          auto* const page = kmalloc(size, 1, &phys_addr);
-          printf("page: %p, size: %u, physical: %X\n", page, size, phys_addr);
+          kprint("Bye!\n");
+          cpu_halt();
         },
-    },
-    kshell_command {
-        "UNAME",
-        "print os name",
-        [](char const*) { kprint("tunix\n"); },
     },
     kshell_command {
         "TRUE",
         "test kernel assertions.",
         [](char const*) { TNX_KASSERT(true); },
+    },
+    kshell_command {
+        "UNAME",
+        "print os name",
+        [](char const*) { kprint("tunix\n"); },
     },
     kshell_command {
         "VERSION",
@@ -109,28 +105,36 @@ constexpr kshell_command entry_points[] = {
 
 void ls_entry_point(char const*)
 {
-  for (auto const& hnd : entry_points) { printf("%s\n", hnd.token); }
+  for (auto const& cmd : commands) { printf("%s\n", cmd.token); }
 }
 
 void man_entry_point(char const* input)
 {
-  for (auto const& hnd : entry_points)
+  for (auto const& cmd : commands)
   {
-    auto const* token = hnd.token;
-    auto const* help  = hnd.help;
+    auto const* token = cmd.token;
+    auto const* help  = cmd.help;
     if (starts_with(input + 4, token)) { printf("%s: %s\n", token, help); }
   }
+}
+
+void malloc_entry_point(char const*)
+{
+  auto phys_addr   = uintptr_t {0};
+  auto const size  = uint32_t {1000};
+  auto* const page = kmalloc(size, 1, &phys_addr);
+  printf("page: %p, size: %u, physical: %X\n", page, size, phys_addr);
 }
 
 }  // namespace
 
 void kshell_process_input(char const* input)
 {
-  for (auto const& hnd : entry_points)
+  for (auto const& cmd : commands)
   {
-    if (starts_with(input, hnd.token))
+    if (starts_with(input, cmd.token))
     {
-      if (hnd.entry_point != nullptr) { hnd.entry_point(input); }
+      if (cmd.entry_point != nullptr) { cmd.entry_point(input); }
       break;
     }
   }
