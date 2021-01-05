@@ -36,35 +36,26 @@
 
 namespace
 {
-typedef void (*kshell_handle_t)(char const*);
+void ls_entry_point(char const*);
+void man_entry_point(char const*);
 
-struct kshell_handler
-{
-  char const* token       = nullptr;
-  char const* help        = nullptr;
-  kshell_handle_t handler = nullptr;
-};
-
-void ls_handler(char const*);
-void man_handler(char const*);
-
-constexpr kshell_handler handlers[] = {
-    kshell_handler {
+constexpr kshell_command entry_points[] = {
+    kshell_command {
         "CLEAR",
         "clear dusplay",
         [](char const*) { clear_screen(); },
     },
-    kshell_handler {
+    kshell_command {
         "COPYRIGHT",
         "print copyright",
         [](char const*) { kprint(TUNIX_COPYRIGHT); },
     },
-    kshell_handler {
+    kshell_command {
         "ECHO",
         "print input to console",
         [](char const* input) { printf("%s\n", input + 5); },
     },
-    kshell_handler {
+    kshell_command {
         "EXIT",
         "shutdown the system",
         [](char const*) {
@@ -72,22 +63,22 @@ constexpr kshell_handler handlers[] = {
           __asm__ __volatile__("hlt");
         },
     },
-    kshell_handler {
+    kshell_command {
         "FALSE",
         "test kernel assertions",
         [](char const*) { TNX_KASSERT(1 == 2); },
     },
-    kshell_handler {
+    kshell_command {
         "LS",
         "list programs",
-        ls_handler,
+        ls_entry_point,
     },
-    kshell_handler {
+    kshell_command {
         "MAN",
         "show program help",
-        man_handler,
+        man_entry_point,
     },
-    kshell_handler {
+    kshell_command {
         "PAGE",
         "request page from kmalloc",
         [](char const*) {
@@ -97,38 +88,31 @@ constexpr kshell_handler handlers[] = {
           printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
         },
     },
-    kshell_handler {
+    kshell_command {
         "UNAME",
         "print os name",
         [](char const*) { kprint("tunix\n"); },
     },
-    kshell_handler {
+    kshell_command {
         "TRUE",
         "test kernel assertions.",
         [](char const*) { TNX_KASSERT(true); },
     },
-    kshell_handler {
+    kshell_command {
         "VERSION",
         "print os version",
         [](char const*) { printf("%s\n", TNX_VERSION_STRING); },
     },
 };
 
-TNX_NODISCARD bool starts_with(char const* str, char const* pre)
+void ls_entry_point(char const*)
 {
-  auto const lenpre = strlen(pre);
-  auto const lenstr = strlen(str);
-  return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
+  for (auto const& hnd : entry_points) { printf("%s\n", hnd.token); }
 }
 
-void ls_handler(char const*)
+void man_entry_point(char const* input)
 {
-  for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
-}
-
-void man_handler(char const* input)
-{
-  for (auto const& hnd : handlers)
+  for (auto const& hnd : entry_points)
   {
     auto const* token = hnd.token;
     auto const* help  = hnd.help;
@@ -140,11 +124,11 @@ void man_handler(char const* input)
 
 void kshell_process_input(char const* input)
 {
-  for (auto const& hnd : handlers)
+  for (auto const& hnd : entry_points)
   {
     if (starts_with(input, hnd.token))
     {
-      if (hnd.handler != nullptr) { hnd.handler(input); }
+      if (hnd.entry_point != nullptr) { hnd.entry_point(input); }
       break;
     }
   }

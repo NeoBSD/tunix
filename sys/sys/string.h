@@ -66,6 +66,11 @@ void append(char* s, char n);
  */
 TNX_NODISCARD int strcmp(char const* s1, char const* s2);
 
+/**
+ * @brief Returns true, if the given string \param str begins
+ * the the prefix \param pre.
+ */
+TNX_NODISCARD bool starts_with(char const* str, char const* pre);
 TNX_END_EXTERN_C
 
 #endif

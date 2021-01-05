@@ -25,6 +25,7 @@
  */
 
 #include "sys/string.h"
+#include "sys/kernel_mem.h"
 #include "sys/stdint.h"
 
 /**
@@ -114,4 +115,11 @@ int strcmp(char const* s1, char const* s2)
     if (s1[i] == '\0') return 0;
   }
   return s1[i] - s2[i];
+}
+
+TNX_NODISCARD bool starts_with(char const* str, char const* pre)
+{
+  auto const lenpre = strlen(pre);
+  auto const lenstr = strlen(str);
+  return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
 }

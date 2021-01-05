@@ -32,6 +32,21 @@
 TNX_BEGIN_EXTERN_C
 
 /**
+ * @brief Function pointer type for a kernel shell command.
+ */
+typedef void (*kshell_command_entry)(char const*);
+
+/**
+ * @brief Definition of a kernel shell command.
+ */
+struct kshell_command
+{
+  char const* token                = nullptr;
+  char const* help                 = nullptr;
+  kshell_command_entry entry_point = nullptr;
+};
+
+/**
  * @brief Process user input inside the kernel.
  */
 void kshell_process_input(char const* input);
