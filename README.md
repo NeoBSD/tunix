@@ -77,6 +77,7 @@ SUM:                            50            553           1414           2371
 - [github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
 - [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
 - [Harvard: OS161 Kernel (good Makefile build-system)](https://github.com/haisano/OS161-kernel)
+- [GNU Assembler: Examples](https://cs.lmu.edu/~ray/notes/gasexamples/)
 
 ### YouTube
 

@@ -9,6 +9,7 @@ IMAGE=$(KERNEL)-image
 COMMON += -O2
 COMMON += -static
 COMMON += -ffreestanding
+COMMON += -fno-builtin
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
 COMMON += -mno-red-zone
