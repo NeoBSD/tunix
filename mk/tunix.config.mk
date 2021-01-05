@@ -7,12 +7,11 @@ KERNEL=tunix
 IMAGE=$(KERNEL)-image
 
 COMMON += -O2
+COMMON += -static
 COMMON += -ffreestanding
 COMMON += -fno-pie
 COMMON += -fno-strict-aliasing
 COMMON += -mno-red-zone
-COMMON += -nostdlib
-COMMON += -static
 
 COMMON += -Werror
 COMMON += -Wall
@@ -36,6 +35,9 @@ CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
 
 LDFLAGS += -nodefaultlibs
+LDFLAGS += -nolibc
+LDFLAGS += -nostdlib
+LDFLAGS += -nostartfiles
 LDFLAGS += --no-undefined
 
 include $(TOP)/mk/tunix.sanitizer.mk
