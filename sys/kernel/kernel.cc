@@ -43,9 +43,8 @@ void kernel_main()
   irq_install();
 
   clear_screen();
-  printf("Tunix 0.1.0\n");
-  printf(TUNIX_COPYRIGHT);
-  kprint("\n> ");
+  printf("Tunix 0.1.0\n%s\n", TUNIX_COPYRIGHT);
+  kprint("> ");
 }
 
 namespace
@@ -58,6 +57,9 @@ struct kshell_handler
   char const* help        = nullptr;
   kshell_handle_t handler = nullptr;
 };
+
+void ls_handler(char const*);
+void man_handler(char const*);
 
 constexpr kshell_handler handlers[] = {
     kshell_handler {
@@ -90,9 +92,14 @@ constexpr kshell_handler handlers[] = {
         .handler = [](char const*) { TNX_KASSERT(1 == 2); },
     },
     kshell_handler {
-        .token   = "UNAME",
-        .help    = "print os name",
-        .handler = [](char const*) { kprint("tunix\n"); },
+        .token   = "LS",
+        .help    = "list programs",
+        .handler = ls_handler,
+    },
+    kshell_handler {
+        .token   = "MAN",
+        .help    = "show program help",
+        .handler = man_handler,
     },
     kshell_handler {
         .token = "PAGE",
@@ -105,6 +112,11 @@ constexpr kshell_handler handlers[] = {
               printf("page: %X, size: %u, physical: %X\n", page, size,
                      phys_addr);
             },
+    },
+    kshell_handler {
+        .token   = "UNAME",
+        .help    = "print os name",
+        .handler = [](char const*) { kprint("tunix\n"); },
     },
     kshell_handler {
         .token   = "TRUE",
@@ -125,25 +137,25 @@ TNX_NODISCARD bool starts_with(char const* str, char const* pre)
   return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
 }
 
+void ls_handler(char const*)
+{
+  for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
+}
+
+void man_handler(char const* input)
+{
+  for (auto const& hnd : handlers)
+  {
+    auto const* token = hnd.token;
+    auto const* help  = hnd.help;
+    if (starts_with(input + 4, token)) { printf("%s: %s\n", token, help); }
+  }
+}
+
 }  // namespace
 
 void user_input(char const* input)
 {
-  if (starts_with(input, "LS"))
-  {
-    for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
-  }
-
-  if (starts_with(input, "MAN"))
-  {
-    for (auto const& hnd : handlers)
-    {
-      auto const* token = hnd.token;
-      auto const* help  = hnd.help;
-      if (starts_with(input + 4, token)) { printf("%s: %s\n", token, help); }
-    }
-  }
-
   for (auto const& hnd : handlers)
   {
     if (starts_with(input, hnd.token))
