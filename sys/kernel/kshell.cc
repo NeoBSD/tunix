@@ -82,10 +82,10 @@ constexpr kshell_command entry_points[] = {
         "PAGE",
         "request page from kmalloc",
         [](char const*) {
-          auto const size = uint32_t {1000};
-          auto phys_addr  = uint32_t {0};
-          auto const page = kmalloc(size, 1, &phys_addr);
-          printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
+          auto phys_addr   = uintptr_t {0};
+          auto const size  = uint32_t {1000};
+          auto* const page = kmalloc(size, 1, &phys_addr);
+          printf("page: %p, size: %u, physical: %X\n", page, size, phys_addr);
         },
     },
     kshell_command {

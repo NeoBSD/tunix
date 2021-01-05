@@ -50,7 +50,7 @@ TNX_NODISCARD int kmemcmp(const void* s1, const void* s2, size_t n);
 /**
  * @brief At this stage there is no 'free' implemented.
  */
-TNX_NODISCARD uint32_t kmalloc(size_t size, int align, uint32_t* phys_addr);
+TNX_NODISCARD void* kmalloc(size_t size, int align, uintptr_t* phys_addr);
 
 TNX_END_EXTERN_C
 #endif
