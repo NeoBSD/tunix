@@ -25,7 +25,7 @@
  */
 
 #include "sys/string.h"
-#include "sys/kernel_mem.h"
+#include "sys/kmem.h"
 #include "sys/stdint.h"
 
 /**
@@ -121,5 +121,5 @@ TNX_NODISCARD bool starts_with(char const* str, char const* pre)
 {
   auto const lenpre = strlen(pre);
   auto const lenstr = strlen(str);
-  return lenstr < lenpre ? false : memcmp(pre, str, lenpre) == 0;
+  return lenstr < lenpre ? false : kmemcmp(pre, str, lenpre) == 0;
 }

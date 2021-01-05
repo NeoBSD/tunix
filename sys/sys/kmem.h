@@ -35,7 +35,7 @@ TNX_BEGIN_EXTERN_C
 /**
  * @brief Kernel memcpy.
  */
-void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes);
+void kmemcpy(uint8_t* source, uint8_t* dest, int nbytes);
 
 /**
  * @brief Kernel memset.
@@ -45,7 +45,7 @@ void kmemset(uint8_t* dest, uint8_t val, uint32_t len);
 /**
  * @brief Compare memory regions.
  */
-TNX_NODISCARD int memcmp(const void* s1, const void* s2, size_t n);
+TNX_NODISCARD int kmemcmp(const void* s1, const void* s2, size_t n);
 
 /**
  * @brief At this stage there is no 'free' implemented.

@@ -26,7 +26,7 @@
 
 #include "screen.h"
 
-#include "sys/kernel_mem.h"
+#include "sys/kmem.h"
 #include "sys/stdint.h"
 
 #include "machine/ports.h"
@@ -127,8 +127,8 @@ int print_char(char c, int col, int row, char attr)
   {
     int i;
     for (i = 1; i < MAX_ROWS; i++)
-      kmemcopy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
-               (uint8_t*)(get_offset(0, i - 1) + VIDEO_ADDRESS), MAX_COLS * 2);
+      kmemcpy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
+              (uint8_t*)(get_offset(0, i - 1) + VIDEO_ADDRESS), MAX_COLS * 2);
 
     /* Blank last line */
     char* last_line

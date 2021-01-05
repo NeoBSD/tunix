@@ -24,9 +24,9 @@
  * DAMAGE.
  */
 
-#include "sys/kernel_mem.h"
+#include "sys/kmem.h"
 
-void kmemcopy(uint8_t* source, uint8_t* dest, int nbytes)
+void kmemcpy(uint8_t* source, uint8_t* dest, int nbytes)
 {
   for (int i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
 }
@@ -37,7 +37,7 @@ void kmemset(uint8_t* dest, uint8_t val, uint32_t len)
   for (; len != 0; len--) { *temp++ = val; }
 }
 
-int memcmp(void const* s1, void const* s2, size_t n)
+int kmemcmp(void const* s1, void const* s2, size_t n)
 {
   if (n != 0)
   {

@@ -27,7 +27,7 @@
 #include "sys/kshell.h"
 
 #include "sys/copyright.h"
-#include "sys/kernel_mem.h"
+#include "sys/kmem.h"
 #include "sys/param.h"
 #include "sys/string.h"
 #include "sys/systm.h"
