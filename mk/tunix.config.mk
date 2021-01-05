@@ -31,7 +31,7 @@ CFLAGS += $(COMMON)
 CFLAGS += -std=c99
 
 CXXFLAGS += $(COMMON)
-CXXFLAGS += -std=c++2a
+CXXFLAGS += -std=c++17
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
 

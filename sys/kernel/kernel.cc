@@ -63,70 +63,67 @@ void man_handler(char const*);
 
 constexpr kshell_handler handlers[] = {
     kshell_handler {
-        .token   = "CLEAR",
-        .help    = "clear dusplay",
-        .handler = [](char const*) { clear_screen(); },
+        "CLEAR",
+        "clear dusplay",
+        [](char const*) { clear_screen(); },
     },
     kshell_handler {
-        .token   = "COPYRIGHT",
-        .help    = "print copyright",
-        .handler = [](char const*) { kprint(TUNIX_COPYRIGHT); },
+        "COPYRIGHT",
+        "print copyright",
+        [](char const*) { kprint(TUNIX_COPYRIGHT); },
     },
     kshell_handler {
-        .token   = "ECHO",
-        .help    = "print input to console",
-        .handler = [](char const* input) { printf("%s\n", input + 5); },
+        "ECHO",
+        "print input to console",
+        [](char const* input) { printf("%s\n", input + 5); },
     },
     kshell_handler {
-        .token = "EXIT",
-        .help  = "shutdown the system",
-        .handler =
-            [](char const*) {
-              kprint("Stopping the CPU. Bye!\n");
-              __asm__ __volatile__("hlt");
-            },
+        "EXIT",
+        "shutdown the system",
+        [](char const*) {
+          kprint("Stopping the CPU. Bye!\n");
+          __asm__ __volatile__("hlt");
+        },
     },
     kshell_handler {
-        .token   = "FALSE",
-        .help    = "test kernel assertions",
-        .handler = [](char const*) { TNX_KASSERT(1 == 2); },
+        "FALSE",
+        "test kernel assertions",
+        [](char const*) { TNX_KASSERT(1 == 2); },
     },
     kshell_handler {
-        .token   = "LS",
-        .help    = "list programs",
-        .handler = ls_handler,
+        "LS",
+        "list programs",
+        ls_handler,
     },
     kshell_handler {
-        .token   = "MAN",
-        .help    = "show program help",
-        .handler = man_handler,
+        "MAN",
+        "show program help",
+        man_handler,
     },
     kshell_handler {
-        .token = "PAGE",
-        .help  = "request page from kmalloc",
-        .handler =
-            [](char const*) {
-              auto const size = uint32_t {1000};
-              auto phys_addr  = uint32_t {0};
-              auto const page = kmalloc(size, 1, &phys_addr);
-              printf("page: %X, size: %u, physical: %X\n", page, size,
-                     phys_addr);
-            },
+        "PAGE",
+        "request page from kmalloc",
+        [](char const*) {
+          auto const size = uint32_t {1000};
+          auto phys_addr  = uint32_t {0};
+          auto const page = kmalloc(size, 1, &phys_addr);
+          printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
+        },
     },
     kshell_handler {
-        .token   = "UNAME",
-        .help    = "print os name",
-        .handler = [](char const*) { kprint("tunix\n"); },
+        "UNAME",
+        "print os name",
+        [](char const*) { kprint("tunix\n"); },
     },
     kshell_handler {
-        .token   = "TRUE",
-        .help    = "test kernel assertions.",
-        .handler = [](char const*) { TNX_KASSERT(true); },
+        "TRUE",
+        "test kernel assertions.",
+        [](char const*) { TNX_KASSERT(true); },
     },
     kshell_handler {
-        .token   = "VERSION",
-        .help    = "print os version",
-        .handler = [](char const*) { printf("%s\n", TNX_VERSION_STRING); },
+        "VERSION",
+        "print os version",
+        [](char const*) { printf("%s\n", TNX_VERSION_STRING); },
     },
 };
 
