@@ -35,7 +35,7 @@ TNX_BEGIN_EXTERN_C
 /**
  * @brief Kernel memcpy.
  */
-void kmemcpy(uint8_t* source, uint8_t* dest, int nbytes);
+void kmemcpy(uint8_t const* source, uint8_t* dest, int nbytes);
 
 /**
  * @brief Kernel memset.

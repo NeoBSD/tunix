@@ -26,7 +26,7 @@
 
 #include "sys/kmem.h"
 
-void kmemcpy(uint8_t* source, uint8_t* dest, int nbytes)
+void kmemcpy(uint8_t const* source, uint8_t* dest, int nbytes)
 {
   for (int i = 0; i < nbytes; i++) { *(dest + i) = *(source + i); }
 }
@@ -63,16 +63,18 @@ uintptr_t free_mem_addr = 0x10000;
  */
 void* kmalloc(size_t size, int align, uintptr_t* phys_addr)
 {
-  /* Pages are aligned to 4K, or 0x1000 */
+  // Pages are aligned to 4K, or 0x1000
   if (align == 1 && (free_mem_addr & 0xFFFFF000))
   {
     free_mem_addr &= 0xFFFFF000;
     free_mem_addr += 0x1000;
   }
-  /* Save also the physical address */
-  if (phys_addr) *phys_addr = free_mem_addr;
 
+  // Save also the physical address
+  if (phys_addr) { *phys_addr = free_mem_addr; }
+
+  // Remember to increment the pointer
   auto const ret = free_mem_addr;
-  free_mem_addr += size; /* Remember to increment the pointer */
+  free_mem_addr += size;
   return reinterpret_cast<void*>(ret);
 }
