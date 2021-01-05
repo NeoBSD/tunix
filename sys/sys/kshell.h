@@ -24,25 +24,18 @@
  * DAMAGE.
  */
 
-#include "sys/kernel.h"
+#ifndef TNX_SYS_KSHELL_H
+#define TNX_SYS_KSHELL_H
 
-#include "sys/copyright.h"
-#include "sys/kshell.h"
-#include "sys/stdint.h"
-#include "sys/systm.h"
+#include "sys/cdefs.h"
 
-#include "machine/isr.h"
+TNX_BEGIN_EXTERN_C
 
-#include "driver/screen.h"
+/**
+ * @brief Process user input inside the kernel.
+ */
+void kshell_process_input(char const* input);
 
-void kernel_main()
-{
-  isr_install();
-  irq_install();
+TNX_END_EXTERN_C
 
-  clear_screen();
-  printf("Tunix 0.1.0\n%s\n", TUNIX_COPYRIGHT);
-  kprint("> ");
-}
-
-void user_input(char const* input) { kshell_process_input(input); }
+#endif  // TNX_SYS_KSHELL_H
