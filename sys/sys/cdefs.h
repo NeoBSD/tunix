@@ -34,6 +34,12 @@
 #define TNX_UNUSED(x) (void)(x)
 
 /**
+ * @brief Convert macro argument to string literal.
+ */
+#define TNX_STRINGIFY(x) TNX_STRINGIFY_IMPL(x)
+#define TNX_STRINGIFY_IMPL(x) #x
+
+/**
  * @brief Check if C++ is enabled. i.e. Is the current translation unit a .cc
  * file
  */

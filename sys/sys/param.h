@@ -27,9 +27,15 @@
 #ifndef TNX_SYS_PARAM_H
 #define TNX_SYS_PARAM_H
 
+#include "sys/cdefs.h"
+
 #define TNX_VERSION_MAJOR 0
 #define TNX_VERSION_MINOR 1
 #define TNX_VERSION_PATCH 0
+
+#define TNX_VERSION_STRING                                                     \
+  TNX_STRINGIFY(TNX_VERSION_MAJOR)                                             \
+  "." TNX_STRINGIFY(TNX_VERSION_MINOR) "." TNX_STRINGIFY(TNX_VERSION_PATCH)
 
 #include "sys/null.h"
 

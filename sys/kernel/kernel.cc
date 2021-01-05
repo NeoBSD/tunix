@@ -61,62 +61,60 @@ struct kshell_handler
 
 constexpr kshell_handler handlers[] = {
     kshell_handler {
-        "CLEAR",
-        "clear dusplay",
-        [](char const*) { clear_screen(); },
+        .token   = "CLEAR",
+        .help    = "clear dusplay",
+        .handler = [](char const*) { clear_screen(); },
     },
     kshell_handler {
-        "COPYRIGHT",
-        "print copyright",
-        [](char const*) { kprint(TUNIX_COPYRIGHT); },
+        .token   = "COPYRIGHT",
+        .help    = "print copyright",
+        .handler = [](char const*) { kprint(TUNIX_COPYRIGHT); },
     },
     kshell_handler {
-        "ECHO",
-        "print input to console",
-        [](char const* input) { printf("%s\n", input + 5); },
+        .token   = "ECHO",
+        .help    = "print input to console",
+        .handler = [](char const* input) { printf("%s\n", input + 5); },
     },
     kshell_handler {
-        "EXIT",
-        "shutdown the system",
-        [](char const*) {
-          kprint("Stopping the CPU. Bye!\n");
-          __asm__ __volatile__("hlt");
-        },
+        .token = "EXIT",
+        .help  = "shutdown the system",
+        .handler =
+            [](char const*) {
+              kprint("Stopping the CPU. Bye!\n");
+              __asm__ __volatile__("hlt");
+            },
     },
     kshell_handler {
-        "FALSE",
-        "test kernel assertions",
-        [](char const*) { TNX_KASSERT(1 == 2); },
+        .token   = "FALSE",
+        .help    = "test kernel assertions",
+        .handler = [](char const*) { TNX_KASSERT(1 == 2); },
     },
     kshell_handler {
-        "UNAME",
-        "print os name",
-        [](char const*) { kprint("tunix\n"); },
+        .token   = "UNAME",
+        .help    = "print os name",
+        .handler = [](char const*) { kprint("tunix\n"); },
     },
     kshell_handler {
-        "PAGE",
-        "request page from kmalloc",
-        [](char const*) {
-          auto const size = uint32_t {1000};
-          auto phys_addr  = uint32_t {0};
-          auto const page = kmalloc(size, 1, &phys_addr);
-          printf("page: %X, size: %u, physical: %X\n", page, size, phys_addr);
-        },
+        .token = "PAGE",
+        .help  = "request page from kmalloc",
+        .handler =
+            [](char const*) {
+              auto const size = uint32_t {1000};
+              auto phys_addr  = uint32_t {0};
+              auto const page = kmalloc(size, 1, &phys_addr);
+              printf("page: %X, size: %u, physical: %X\n", page, size,
+                     phys_addr);
+            },
     },
     kshell_handler {
-        "TRUE",
-        "test kernel assertions.",
-        [](char const*) { TNX_KASSERT(true); },
+        .token   = "TRUE",
+        .help    = "test kernel assertions.",
+        .handler = [](char const*) { TNX_KASSERT(true); },
     },
     kshell_handler {
-        "VERSION",
-        "print os version",
-        [](char const*) {
-          auto const major = TNX_VERSION_MAJOR;
-          auto const minor = TNX_VERSION_MINOR;
-          auto const patch = TNX_VERSION_PATCH;
-          printf("%d.%d.%d\n", major, minor, patch);
-        },
+        .token   = "VERSION",
+        .help    = "print os version",
+        .handler = [](char const*) { printf("%s\n", TNX_VERSION_STRING); },
     },
 };
 
@@ -131,7 +129,7 @@ TNX_NODISCARD bool starts_with(char const* str, char const* pre)
 
 void user_input(char const* input)
 {
-  if (starts_with(input, "LIST"))
+  if (starts_with(input, "LS"))
   {
     for (auto const& hnd : handlers) { printf("%s\n", hnd.token); }
   }
