@@ -34,6 +34,8 @@
 
 #include "driver/screen.h"
 
+#include "machine/halt.h"
+
 namespace
 {
 void ls_entry_point(char const*);
@@ -59,8 +61,8 @@ constexpr kshell_command entry_points[] = {
         "EXIT",
         "shutdown the system",
         [](char const*) {
-          kprint("Stopping the CPU. Bye!\n");
-          __asm__ __volatile__("hlt");
+          kprint("Bye!\n");
+          cpu_halt();
         },
     },
     kshell_command {
