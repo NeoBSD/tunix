@@ -32,6 +32,45 @@
 TNX_BEGIN_EXTERN_C
 
 /**
+ * @brief Returns the length of the given byte string, that is, the number of
+ * characters in a character array whose first element is pointed to by
+ * \param str up to and not including the first null character.
+ *
+ * @details The behavior is undefined if there is no null character in the
+ * character array pointed to by str.
+ */
+TNX_NODISCARD int strlen(char const* str);
+
+/**
+ * @brief Appends a copy of the character string pointed to by \param src to the
+ * end of the character string pointed to by \param dest. The character src[0]
+ * replaces the null terminator at the end of dest. The resulting byte string is
+ * null-terminated.
+ *
+ * @details The behavior is undefined if the destination array is not large
+ * enough for the contents of both \param src and \param dest and the
+ * terminating null character. The behavior is undefined if the strings overlap.
+ *
+ */
+char* strcat(char* dest, char const* src);
+
+/**
+ * @brief Compares two null-terminated byte strings lexicographically.
+ *
+ * @details The sign of the result is the sign of the difference between the
+ * values of the first pair of characters (both interpreted as unsigned char)
+ * that differ in the strings being compared. The behavior is undefined if
+ * \param lhs or \param rhs are not pointers to null-terminated strings.
+ */
+TNX_NODISCARD int strcmp(char const* lhs, char const* rhs);
+
+/**
+ * @brief Returns true, if the given string \param str begins
+ * the the prefix \param pre.
+ */
+TNX_NODISCARD bool starts_with(char const* str, char const* pre);
+
+/**
  * @brief
  */
 void int_to_ascii(int n, char* str);
@@ -49,11 +88,6 @@ void reverse(char* s);
 /**
  * @brief
  */
-TNX_NODISCARD int strlen(char const* s);
-
-/**
- * @brief
- */
 void backspace(char* s);
 
 /**
@@ -61,16 +95,6 @@ void backspace(char* s);
  */
 void append(char* s, char n);
 
-/**
- * @brief
- */
-TNX_NODISCARD int strcmp(char const* s1, char const* s2);
-
-/**
- * @brief Returns true, if the given string \param str begins
- * the the prefix \param pre.
- */
-TNX_NODISCARD bool starts_with(char const* str, char const* pre);
 TNX_END_EXTERN_C
 
 #endif

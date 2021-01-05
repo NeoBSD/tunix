@@ -105,6 +105,18 @@ void backspace(char s[])
   s[len - 1] = '\0';
 }
 
+char* strcat(char* dest, const char* src)
+{
+  size_t i = 0;
+  for (; dest[i] != '\0'; i++) { ; }
+
+  size_t j = 0;
+  for (; src[j] != '\0'; j++) { dest[i + j] = src[j]; }
+
+  dest[i + j] = '\0';
+  return dest;
+}
+
 /* K&R
  * Returns <0 if s1<s2, 0 if s1==s2, >0 if s1>s2 */
 int strcmp(char const* s1, char const* s2)
