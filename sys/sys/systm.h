@@ -35,62 +35,84 @@
 TNX_BEGIN_EXTERN_C
 
 /**
- * Output a character to a custom device like UART, used by the printf()
- * function This function is declared here only. You have to write your custom
- * implementation somewhere \param character Character to output
+ * @brief Output a character to a custom device like UART, used by the printf()
+ * function This function is declared here only.
+ *
+ * @details You have to write your custom implementation somewhere .
+ * @param character Character to output
  */
 void printf_internal_putchar(char character);
 
 /**
- * Tiny printf implementation
- * You have to implement _putchar if you use printf()
- * \param format A string that specifies the format of the output
- * \return The number of characters that are written into the array, not
+ * @brief printf implementation
+ *
+ * @param format A string that specifies the format of the output
+ * @return The number of characters that are written into the array, not
  * counting the terminating null character
  */
 int printf(char const* format, ...) TNX_PRINTF_FUNC(1, 2);
 
 /**
- * Tiny sprintf implementation
- * Due to security reasons (buffer overflow) YOU SHOULD CONSIDER USING
- * (V)SNPRINTF INSTEAD! \param buffer A pointer to the buffer where to store the
- * formatted string. MUST be big enough to store the output! \param format A
- * string that specifies the format of the output \return The number of
- * characters that are WRITTEN into the buffer, not counting the terminating
- * null character
+ * @brief sprintf implementation
+ *
+ * @details Due to security reasons you should consider using (v)snprintf
+ * instead.
+ * @param buffer A pointer to the buffer where to store the formatted string.
+ * MUST be big enough to store the output!
+ * @param format A string that specifies the format of the output
+ * @return The number of characters that are WRITTEN into the buffer, not
+ * counting the terminating null character
  */
 int sprintf(char* buffer, char const* format, ...) TNX_PRINTF_FUNC(2, 3);
 
 /**
- * Tiny snprintf/vsnprintf implementation
- * \param buf A pointer to the buffer where to store the formatted string
- * \param num The maximum number of characters to store in the buffer,
- * including a terminating null character \param fmt A string that specifies
- * the format of the output \param va A value identifying a variable arguments
- * list \return The number of characters that COULD have been written into the
+ * @brief snprintf implementation
+ *
+ * @param buf A pointer to the buffer where to store the formatted string
+ * @param num The maximum number of characters to store in the buffer,
+ * including a terminating null character.
+ * @param fmt A string that specifies the format of the output
+ * @return The number of characters that COULD have been written into the
+ * buffer, not counting the terminating null character. A value equal or larger
+ * than num indicates truncation. Only when the returned value is non-negative
+ * and less than num, the string has been completely written.
+ */
+int snprintf(char* buf, size_t num, char const* fmt, ...) TNX_PRINTF_FUNC(3, 4);
+
+/**
+ * @brief vsnprintf implementation
+ *
+ * @param buf A pointer to the buffer where to store the formatted string
+ * @param num The maximum number of characters to store in the buffer,
+ * including a terminating null character.
+ * @param fmt A string that specifies the format of the output
+ * @param va A value identifying a variable arguments list
+ * @return The number of characters that COULD have been written into the
  * buffer, not counting the terminating null character. A value equal or larger
  * than num indicates truncation. Only when the returned value is non-negative
  * and less than num, the string has been completely written.
  */
 int vsnprintf(char* buf, size_t num, char const* fmt, va_list va);
-int snprintf(char* buf, size_t num, char const* fmt, ...) TNX_PRINTF_FUNC(3, 4);
+
 /**
- * Tiny vprintf implementation
- * \param format A string that specifies the format of the output
- * \param va A value identifying a variable arguments list
- * \return The number of characters that are WRITTEN into the buffer, not
+ * @brief vprintf implementation
+ *
+ * @param format A string that specifies the format of the output
+ * @param va A value identifying a variable arguments list
+ * @return The number of characters that are WRITTEN into the buffer, not
  * counting the terminating null character
  */
 int vprintf(char const* format, va_list va);
 
 /**
- * printf with output function
- * You may use this as dynamic alternative to printf() with its fixed
- * _putchar() output \param out An output function which takes one character
- * and an argument pointer \param arg An argument pointer for user data passed
- * to output function \param format A string that specifies the format of the
- * output \return The number of characters that are sent to the output
- * function, not counting the terminating null character
+ * @brief printf with output callback function
+ *
+ * @param out An output function which takes one character and an argument
+ * pointer.
+ * @param arg An argument pointer for user data passed to output function
+ * @param format A string that specifies the format of the output
+ * @return The number of characters that are sent to the output function, not
+ * counting the terminating null character
  */
 int fctprintf(void (*out)(char character, void* arg), void* arg,
               char const* format, ...) TNX_PRINTF_FUNC(3, 4);
