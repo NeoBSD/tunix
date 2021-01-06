@@ -5,7 +5,14 @@ ASM=nasm
 KERNEL=tunix
 IMAGE=$(KERNEL)-image
 
-COMMON += -O0
+ifdef DEBUG
+COMMON += -Og
+COMMON += -g
+else
+COMMON += -O2
+# COMMON += -flto
+endif
+
 COMMON += -static
 COMMON += -ffreestanding
 COMMON += -fno-builtin
