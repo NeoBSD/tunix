@@ -1,30 +1,30 @@
 TOP=.
-include $(TOP)/mk/tunix.config.mk
+include ${TOP}/mk/tunix.config.mk
 
 .PHONY: all
 all: kernel
 
-$(BIN_DIR):
-	@mkdir -p $(BIN_DIR)
+${BIN_DIR}:
+	@mkdir -p ${BIN_DIR}
 
 .PHONY: kernel
-kernel: $(BIN_DIR)
-	@ARCH=$(ARCH) QEMU=$(QEMU) $(MAKE) -C sys all
-	@mv sys/${IMAGE} sys/${KERNEL}.bin sys/${KERNEL}.elf $(BIN_DIR)
+kernel: ${BIN_DIR}
+	@ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys all
+	@mv sys/${IMAGE} sys/${KERNEL}.bin sys/${KERNEL}.elf ${BIN_DIR}
 
 .PHONY: run
 run:
-	$(QEMU) -fda $(BIN_DIR)/${IMAGE}
+	${QEMU} -drive file=${BIN_DIR}/${IMAGE},format=raw
 
 .PHONY: debug
 debug:
-	$(QEMU) -s -fda $(BIN_DIR)/${IMAGE} &
-	$(GDB) -ex "target remote localhost:1234" -ex "symbol-file $(BIN_DIR)/${KERNEL}.elf"
+	${QEMU} -s -drive file=${BIN_DIR}/${IMAGE},format=raw &
+	${GDB} -ex "target remote localhost:1234" -ex "symbol-file ${BIN_DIR}/${KERNEL}.elf"
 
 .PHONY: clean
 clean:
-	ARCH=$(ARCH) QEMU=$(QEMU) $(MAKE) -C sys clean
-	rm -rf $(BIN_DIR)
+	ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys clean
+	rm -rf ${BIN_DIR}
 
 .PHONY: format
 format:
@@ -33,10 +33,10 @@ format:
 .PHONY: info
 info:
 	@echo "VER		=	0.1.0"
-	@echo "BIN		=	$(BIN_DIR)"
-	@echo "ARCH		=	$(ARCH)"
-	@echo "CC		=	$(CC)"
-	@echo "CXX		=	$(CXX)"
-	@echo "LD		=	$(LD)"
-	@echo "QEMU		=	$(QEMU)"
+	@echo "BIN		=	${BIN_DIR}"
+	@echo "ARCH		=	${ARCH}"
+	@echo "CC		=	${CC}"
+	@echo "CXX		=	${CXX}"
+	@echo "LD		=	${LD}"
+	@echo "QEMU		=	${QEMU}"
 
