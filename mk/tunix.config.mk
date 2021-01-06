@@ -45,3 +45,5 @@ LDFLAGS += -nostdlib
 LDFLAGS += -nostartfiles
 LDFLAGS += -Wl,--no-undefined
 
+ARCH_DIR=${TOP}/sys/arch/${ARCH}
+include ${ARCH_DIR}/mk/arch.mk

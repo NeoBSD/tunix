@@ -1,15 +1,12 @@
 TOP=.
 include ${TOP}/mk/tunix.config.mk
 
-.PHONY: all
-all: kernel
-
 ${BIN_DIR}:
 	@mkdir -p ${BIN_DIR}
 
 .PHONY: kernel
 kernel: ${BIN_DIR}
-	@ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys all
+	${MAKE} -C sys all
 	@mv sys/${IMAGE} sys/${KERNEL}.bin sys/${KERNEL}.elf ${BIN_DIR}
 
 .PHONY: run
@@ -23,8 +20,8 @@ debug:
 
 .PHONY: clean
 clean:
-	ARCH=${ARCH} QEMU=${QEMU} ${MAKE} -C sys clean
 	rm -rf ${BIN_DIR}
+	${MAKE} -C sys clean
 
 .PHONY: format
 format:
@@ -32,11 +29,12 @@ format:
 
 .PHONY: info
 info:
-	@echo "VER		=	0.1.0"
-	@echo "BIN		=	${BIN_DIR}"
-	@echo "ARCH		=	${ARCH}"
-	@echo "CC		=	${CC}"
-	@echo "CXX		=	${CXX}"
-	@echo "LD		=	${LD}"
-	@echo "QEMU		=	${QEMU}"
+	@echo "VER      =	0.1.0"
+	@echo "CC       =	${CC}"
+	@echo "CXX      =	${CXX}"
+	@echo "ARCH     =	${ARCH}"
+	@echo "KERNEL   =	${KERNEL}"
+	@echo "IMAGE    =	${IMAGE}"
+	@echo "BIN      =	${BIN_DIR}"
+	@echo "QEMU     =	${QEMU}"
 

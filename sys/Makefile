@@ -1,6 +1,3 @@
-ARCH_DIR=arch/${ARCH}
-include ${ARCH_DIR}/mk/arch.mk
-
 TOP=..
 include ${TOP}/mk/tunix.config.mk
 
