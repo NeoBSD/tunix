@@ -1,34 +1,41 @@
+ARCH_DIR=arch/${ARCH}
+include ${ARCH_DIR}/mk/arch.mk
+
 TOP=..
-include $(TOP)/mk/tunix.config.mk
-include arch/$(ARCH)/mk/arch.mk
+include ${TOP}/mk/tunix.config.mk
 
-CC_SRC  += $(wildcard kernel/*.c sys/*.c driver/*.c arch/$(ARCH)/$(ARCH)/*.c)
-CXX_SRC += $(wildcard kernel/*.cc sys/*.cc driver/*.cc arch/$(ARCH)/$(ARCH)/*.cc)
-HEADERS += $(wildcard kernel/*.h sys/*.h driver/*.h arch/$(ARCH)/$(ARCH)/*.h)
+CC_SRC  += ${wildcard kernel/*.c sys/*.c driver/*.c ${ARCH_DIR}/${ARCH}/*.c}
+CXX_SRC += ${wildcard kernel/*.cc sys/*.cc driver/*.cc ${ARCH_DIR}/${ARCH}/*.cc}
+HEADERS += ${wildcard kernel/*.h sys/*.h driver/*.h ${ARCH_DIR}/${ARCH}/*.h}
 
-OBJ += arch/$(ARCH)/$(ARCH)/interrupt.o
-OBJ += $(CC_SRC:.c=.o)
-OBJ += $(CXX_SRC:.cc=.o)
+OBJ += ${ARCH_DIR}/${ARCH}/interrupt.o
+OBJ += ${CC_SRC:.c=.o}
+OBJ += ${CXX_SRC:.cc=.o}
 
 .PHONY: all
-all: machine $(IMAGE).bin $(KERNEL).bin $(KERNEL).elf
+all: machine depend ${IMAGE}.bin
+
+.PHONY: depend
+depend:
+	${CXX} ${CXXFLAGS} -E -MM ${CXX_SRC}  > .depend
+	# ${CC} ${CFLAGS} -E -MM ${CC_SRC}  >> .depend
 
 machine:
-	ln -s arch/$(ARCH)/include $(TOP)/sys/$@
+	ln -s ${ARCH_DIR}/include ${TOP}/sys/$@
 
-$(IMAGE).bin: arch/$(ARCH)/$(ARCH)/bootsect.bin $(KERNEL).bin
-	cat $^ > $(IMAGE).bin
+${IMAGE}.bin: ${ARCH_DIR}/${ARCH}/bootsect.bin ${KERNEL}.bin
+	cat $^ > ${IMAGE}.bin
 
-$(KERNEL).bin: arch/$(ARCH)/$(ARCH)/kernel_entry.o $(OBJ)
-	$(LD) $(LDFLAGS) -o $@ -Ttext 0x1000 $^ --oformat binary
+${KERNEL}.bin: ${KERNEL}.elf
+	objcopy -O binary $^ $@
 
-$(KERNEL).elf: arch/$(ARCH)/$(ARCH)/kernel_entry.o $(OBJ)
-	$(LD) $(LDFLAGS) -o $@ -Ttext 0x1000 $^
+${KERNEL}.elf: ${ARCH_DIR}/${ARCH}/kernel_entry.o ${OBJ}
+	${CXX} ${LDFLAGS} -o $@ $^
 
-include $(TOP)/mk/tunix.compile.mk
+include ${TOP}/mk/tunix.compile.mk
 
 .PHONY: clean
 clean:
 	rm -f machine
-	rm -rf *.bin *.dis *.o $(IMAGE).bin *.elf
-	rm -rf kernel/*.o sys/*.o driver/*.o arch/$(ARCH)/$(ARCH)/*.o arch/$(ARCH)/$(ARCH)/*.bin
+	rm -rf .depend *.bin *.dis *.o ${IMAGE}.bin *.elf
+	rm -rf kernel/*.o sys/*.o driver/*.o ${ARCH_DIR}/${ARCH}/*.o ${ARCH_DIR}/${ARCH}/*.bin

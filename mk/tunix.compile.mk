@@ -1,8 +1,12 @@
+CFLAGS += $(COMMON)
+CXXFLAGS += $(COMMON)
+LDFLAGS += ${COMMON}
+
 %.o: %.c $(HEADERS)
-	$(CC) $(ARCHFLAGS) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 %.o: %.cc $(HEADERS)
-	$(CXX) $(ARCHFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 %.o: %.asm
 	$(ASM) $< -f elf -o $@

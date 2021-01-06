@@ -13,3 +13,4 @@ compile_commands.json
 *.elf
 sys/machine
 playground
+.depend
