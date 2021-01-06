@@ -9,33 +9,36 @@ ifdef DEBUG
 COMMON += -Og
 COMMON += -g
 else
-COMMON += -O2
+COMMON += -O3
 # COMMON += -flto
 endif
 
 COMMON += -static
-COMMON += -ffreestanding
-COMMON += -fno-builtin
 COMMON += -fno-pie
-COMMON += -fno-strict-aliasing
-COMMON += -mno-red-zone
 
 COMMON += -Werror
 COMMON += -Wall
 COMMON += -Wextra
 COMMON += -Wpedantic
 
-DEFINES += -DTUNIX
-COMMON  += ${DEFINES}
+FREESTANDING += -ffreestanding
+FREESTANDING += -fno-builtin
+FREESTANDING += -fno-strict-aliasing
+FREESTANDING += -mno-red-zone
+FREESTANDING += -nostdinc
 
+DEFINES += -DTUNIX
 INCLUDES += -I${TOP}/sys
-COMMON   += ${INCLUDES}
 
 CFLAGS += -std=c99
-CFLAGS += -nostdinc
+CFLAGS += ${FREESTANDING}
+CFLAGS += ${DEFINES}
+CFLAGS += ${INCLUDES}
 
 CXXFLAGS += -std=c++17
-CXXFLAGS += -nostdinc
+CXXFLAGS += ${FREESTANDING}
+CXXFLAGS += ${DEFINES}
+CXXFLAGS += ${INCLUDES}
 CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
 CXXFLAGS += -fno-threadsafe-statics
@@ -47,3 +50,9 @@ LDFLAGS += -Wl,--no-undefined
 
 ARCH_DIR=${TOP}/sys/arch/${ARCH}
 include ${ARCH_DIR}/mk/arch.mk
+
+ASMFLAGS 	+= ${COMMON}
+CFLAGS 		+= ${COMMON}
+CXXFLAGS 	+= ${COMMON}
+LDFLAGS 	+= ${COMMON}
+

@@ -1,6 +1,5 @@
-CFLAGS += ${COMMON}
-CXXFLAGS += ${COMMON}
-LDFLAGS += ${COMMON}
+%.o: %.s
+	${CC} ${ASMFLAGS} -c $< -o $@
 
 %.o: %.c ${HEADERS}
 	${CC} ${CFLAGS} -c $< -o $@
