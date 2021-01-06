@@ -25,6 +25,7 @@
  */
 
 #include "sys/kmem.h"
+#include "sys/systm.h"
 
 void kmemcpy(uint8_t const* source, uint8_t* dest, int nbytes)
 {
@@ -55,7 +56,7 @@ int kmemcmp(void const* s1, void const* s2, size_t n)
  * value is fine for now. Remember that our kernel starts
  * at 0x1000 as defined on the Makefile
  */
-uintptr_t free_mem_addr = 0x10000;
+auto free_mem_addr = uintptr_t {0x10000};
 
 /**
  * @brief Implementation is just a pointer to some free memory which keeps

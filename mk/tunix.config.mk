@@ -9,7 +9,7 @@ ifdef DEBUG
 COMMON += -Og
 COMMON += -g
 else
-COMMON += -O3
+COMMON += -O2
 # COMMON += -flto
 endif
 
