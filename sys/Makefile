@@ -20,7 +20,7 @@ depend:
 machine:
 	ln -s ${ARCH_DIR}/include ${TOP}/sys/$@
 
-${IMAGE}: ${ARCH_DIR}/${ARCH}/bootsect.bin ${KERNEL}.bin
+${IMAGE}: ${ARCH_DIR}/boot/bootsect.bin ${KERNEL}.bin
 	cat $^ > $@
 
 ${KERNEL}.bin: ${KERNEL}.elf
@@ -35,4 +35,4 @@ include ${TOP}/mk/tunix.compile.mk
 clean:
 	rm -f machine
 	rm -rf .depend *.bin *.dis *.o ${IMAGE} *.elf
-	rm -rf kernel/*.o sys/*.o driver/*.o ${ARCH_DIR}/${ARCH}/*.o ${ARCH_DIR}/${ARCH}/*.bin
+	rm -rf kernel/*.o sys/*.o driver/*.o ${ARCH_DIR}/${ARCH}/*.o ${ARCH_DIR}/boot/*.bin
