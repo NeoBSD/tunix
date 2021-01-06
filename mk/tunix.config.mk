@@ -1,4 +1,4 @@
-include $(TOP)/config.mk
+include ${TOP}/config.mk
 
 ASM=nasm
 
@@ -26,10 +26,10 @@ COMMON += -Wextra
 COMMON += -Wpedantic
 
 DEFINES += -DTUNIX
-COMMON  += $(DEFINES)
+COMMON  += ${DEFINES}
 
-INCLUDES += -I$(TOP)/sys
-COMMON   += $(INCLUDES)
+INCLUDES += -I${TOP}/sys
+COMMON   += ${INCLUDES}
 
 CFLAGS += -std=c99
 CFLAGS += -nostdinc

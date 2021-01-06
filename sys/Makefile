@@ -10,7 +10,7 @@ OBJ += ${CC_SRC:.c=.o}
 OBJ += ${CXX_SRC:.cc=.o}
 
 .PHONY: all
-all: machine depend ${IMAGE}
+all: machine ${IMAGE} depend
 
 .PHONY: depend
 depend:
