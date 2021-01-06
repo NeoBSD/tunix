@@ -19,4 +19,4 @@ jobs:
       run: DEBIAN_FRONTEND=noninteractive sudo apt install -y build-essential nasm
 
     - name: Build
-      run: make all
+      run: make kernel

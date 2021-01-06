@@ -8,13 +8,13 @@ Unix like toy operating system.
 
 ## Quick Start
 
-The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `mk/tunix.clang.mk` or `mk/tunix.gcc.mk`. `nasm` and `ld` are always required.
+The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `mk/tunix.clang.mk` or `mk/tunix.gcc.mk`. `nasm` is always required.
 
 ### Dependencies
 
 ```sh
 # Debian/Ubuntu
-sudo apt install nasm clang lld build-essential
+sudo apt install nasm clang build-essential
 
 # FreeBSD
 sudo pkg install gmake nasm
@@ -25,17 +25,12 @@ sudo pkg install gmake nasm
 ```sh
 # Replace make with gmake when compiling on BSD systems
 
-# clang
-CLANG=1 make all        # Build kernal & image
-CLANG=1 make clean      # Clean all build artifacts
-CLANG=1 make info       # Print env & config variables
-CLANG=1 make run        # Run image in qemu
-
-# gcc
-make all        # Build kernal & image
+make kernel     # Build kernal & image
 make clean      # Clean all build artifacts
 make info       # Print env & config variables
 make run        # Run image in qemu
+
+CC=clang CXX=clang++ make kernel    # Select compiler
 ```
 
 ## Code Layout
