@@ -10,16 +10,16 @@ $(BIN_DIR):
 .PHONY: kernel
 kernel: $(BIN_DIR)
 	@ARCH=$(ARCH) QEMU=$(QEMU) $(MAKE) -C sys all
-	@mv sys/tunix-image.bin sys/tunix.bin sys/tunix.elf $(BIN_DIR)
+	@mv sys/${IMAGE} sys/${KERNEL}.bin sys/${KERNEL}.elf $(BIN_DIR)
 
 .PHONY: run
 run:
-	$(QEMU) -fda $(BIN_DIR)/tunix-image.bin
+	$(QEMU) -fda $(BIN_DIR)/${IMAGE}
 
 .PHONY: debug
 debug:
-	$(QEMU) -s -fda $(BIN_DIR)/tunix-image.bin &
-	$(GDB) -ex "target remote localhost:1234" -ex "symbol-file $(BIN_DIR)/tunix.elf"
+	$(QEMU) -s -fda $(BIN_DIR)/${IMAGE} &
+	$(GDB) -ex "target remote localhost:1234" -ex "symbol-file $(BIN_DIR)/${KERNEL}.elf"
 
 .PHONY: clean
 clean:

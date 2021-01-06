@@ -2,8 +2,8 @@ include $(TOP)/config.mk
 
 ASM=nasm
 
-KERNEL=tunix
-IMAGE=$(KERNEL)-image
+KERNEL=tunix-${ARCH}
+IMAGE=${KERNEL}.img
 
 ifdef DEBUG
 COMMON += -Og

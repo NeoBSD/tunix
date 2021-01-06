@@ -13,7 +13,7 @@ OBJ += ${CC_SRC:.c=.o}
 OBJ += ${CXX_SRC:.cc=.o}
 
 .PHONY: all
-all: machine depend ${IMAGE}.bin
+all: machine depend ${IMAGE}
 
 .PHONY: depend
 depend:
@@ -23,8 +23,8 @@ depend:
 machine:
 	ln -s ${ARCH_DIR}/include ${TOP}/sys/$@
 
-${IMAGE}.bin: ${ARCH_DIR}/${ARCH}/bootsect.bin ${KERNEL}.bin
-	cat $^ > ${IMAGE}.bin
+${IMAGE}: ${ARCH_DIR}/${ARCH}/bootsect.bin ${KERNEL}.bin
+	cat $^ > $@
 
 ${KERNEL}.bin: ${KERNEL}.elf
 	objcopy -O binary $^ $@
@@ -37,5 +37,5 @@ include ${TOP}/mk/tunix.compile.mk
 .PHONY: clean
 clean:
 	rm -f machine
-	rm -rf .depend *.bin *.dis *.o ${IMAGE}.bin *.elf
+	rm -rf .depend *.bin *.dis *.o ${IMAGE} *.elf
 	rm -rf kernel/*.o sys/*.o driver/*.o ${ARCH_DIR}/${ARCH}/*.o ${ARCH_DIR}/${ARCH}/*.bin
