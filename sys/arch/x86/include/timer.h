@@ -36,7 +36,12 @@ TNX_BEGIN_EXTERN_C
 /**
  * @brief
  */
-void init_timer(uint32_t freq);
+void tnx_timer_init(uint32_t freq);
+
+/**
+ * @brief
+ */
+uint32_t tnx_timer_ticks();
 
 TNX_END_EXTERN_C
 

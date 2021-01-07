@@ -181,7 +181,7 @@ void irq_install()
   /* Enable interruptions */
   __asm__ __volatile__("sti");
   /* IRQ0: timer */
-  init_timer(50);
+  tnx_timer_init(50);
   /* IRQ1: keyboard */
   init_keyboard();
 }

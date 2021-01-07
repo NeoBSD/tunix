@@ -27,6 +27,8 @@
 #include "arch/x86/include/timer.h"
 #include "arch/x86/include/ports.h"
 
+namespace
+{
 uint32_t tick = 0;
 
 void timer_callback(registers_t* regs)
@@ -34,8 +36,9 @@ void timer_callback(registers_t* regs)
   tick++;
   TNX_UNUSED(regs);
 }
+}  // namespace
 
-void init_timer(uint32_t freq)
+void tnx_timer_init(uint32_t freq)
 {
   /* Install the function we just wrote */
   register_interrupt_handler(IRQ0, timer_callback);
@@ -49,3 +52,5 @@ void init_timer(uint32_t freq)
   port_byte_out(0x40, low);
   port_byte_out(0x40, high);
 }
+
+uint32_t tnx_timer_ticks() { return tick; }
