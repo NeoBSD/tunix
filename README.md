@@ -8,7 +8,7 @@ Unix like toy operating system.
 
 ## Quick Start
 
-The build-system (Makefile) expects either `gcc`, `g++` or `clang`, `clang++` to be present in `$PATH`. They can be changed in `mk/tunix.clang.mk` or `mk/tunix.gcc.mk`. `nasm` is always required.
+The build-system (Makefile) expects a C compiler (`gcc` or `clang`) and a C++ compiler (`g++` or `clang++`) to be present in `$PATH`. Additionally `nasm` is currently still required to build the x86 bootloader binary.
 
 ### Dependencies
 
@@ -30,6 +30,7 @@ make clean      # Clean all build artifacts
 make info       # Print env & config variables
 make run        # Run image in qemu
 
+DEBUG=1 make kernel                 # Enable `-g` and `-Og`
 CC=clang CXX=clang++ make kernel    # Select compiler
 ```
 
