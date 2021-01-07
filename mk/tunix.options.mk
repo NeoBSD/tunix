@@ -19,7 +19,7 @@ COMMON += -Wpedantic
 FREESTANDING += -ffreestanding
 FREESTANDING += -fno-builtin
 FREESTANDING += -fno-strict-aliasing
-FREESTANDING += -mno-red-zone
+FREESTANDING += -fno-stack-protector
 FREESTANDING += -nostdinc
 
 DEFINES += -DTUNIX

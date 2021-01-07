@@ -2,7 +2,7 @@ TOP=.
 include ${TOP}/mk/tunix.make.mk
 
 .PHONY: all
-all: kernel info
+all: info kernel
 
 ${BIN_DIR}:
 	@mkdir -p ${BIN_DIR}
