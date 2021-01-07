@@ -2,9 +2,9 @@
 
 Unix like toy operating system.
 
-|                                                              License                                                               |                              x86 Clang                              |                             x86 GCC                             |
-| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------: | :-------------------------------------------------------------: |
-| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/neoBSD/tunix/blob/master/LICENSE) | ![Clang](https://github.com/NeoBSD/tunix/workflows/Clang/badge.svg) | ![GCC](https://github.com/NeoBSD/tunix/workflows/GCC/badge.svg) |
+|                                                              License                                                               |                                                               x86 Clang                                                               |                                                             x86 GCC                                                             |
+| :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
+| [![License](https://img.shields.io/badge/License-BSD%202--Clause-orange.svg)](https://github.com/neoBSD/tunix/blob/master/LICENSE) | [![Clang](https://github.com/NeoBSD/tunix/workflows/Clang/badge.svg)](https://github.com/NeoBSD/tunix/actions?query=workflow%3AClang) | [![GCC](https://github.com/NeoBSD/tunix/workflows/GCC/badge.svg)](https://github.com/NeoBSD/tunix/actions?query=workflow%3AGCC) |
 
 ## Quick Start
 
@@ -70,7 +70,8 @@ SUM:                            50            553           1414           2371
 
 ## Resources
 
-- [github.com/cfenollosa/os-tutorial](https://github.com/cfenollosa/os-tutorial)
+- [The little book about OS development (x86)](https://littleosbook.github.io/)
+- [github.com/cfenollosa/os-tutorial (x86)](https://github.com/cfenollosa/os-tutorial)
 - [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
 - [Harvard: OS161 Kernel (good Makefile build-system)](https://github.com/haisano/OS161-kernel)
 - [GNU Assembler: Examples](https://cs.lmu.edu/~ray/notes/gasexamples/)
