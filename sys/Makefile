@@ -1,5 +1,5 @@
 TOP=..
-include ${TOP}/mk/tunix.config.mk
+include ${TOP}/mk/tunix.make.mk
 
 CC_SRC  += ${wildcard kernel/*.c sys/*.c driver/*.c ${ARCH_DIR}/${ARCH}/*.c}
 CXX_SRC += ${wildcard kernel/*.cc sys/*.cc driver/*.cc ${ARCH_DIR}/${ARCH}/*.cc}

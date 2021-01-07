@@ -1,9 +1,4 @@
-include ${TOP}/config.mk
-
 ASM=nasm
-
-KERNEL=tunix-${ARCH}
-IMAGE=${KERNEL}.img
 
 ifdef DEBUG
 COMMON += -Og
@@ -28,6 +23,8 @@ FREESTANDING += -mno-red-zone
 FREESTANDING += -nostdinc
 
 DEFINES += -DTUNIX
+DEFINES += $(addprefix -DTUNIX_ENABLE_, ${OPTIONS})
+
 INCLUDES += -I${TOP}/sys
 
 CFLAGS += -std=c99
@@ -47,12 +44,4 @@ LDFLAGS += -nodefaultlibs
 LDFLAGS += -nostdlib
 LDFLAGS += -nostartfiles
 LDFLAGS += -Wl,--no-undefined
-
-ARCH_DIR=${TOP}/sys/arch/${ARCH}
-include ${ARCH_DIR}/mk/arch.mk
-
-ASMFLAGS 	+= ${COMMON}
-CFLAGS 		+= ${COMMON}
-CXXFLAGS 	+= ${COMMON}
-LDFLAGS 	+= ${COMMON}
 

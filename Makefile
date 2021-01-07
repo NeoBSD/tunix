@@ -1,5 +1,8 @@
 TOP=.
-include ${TOP}/mk/tunix.config.mk
+include ${TOP}/mk/tunix.make.mk
+
+.PHONY: all
+all: kernel info
 
 ${BIN_DIR}:
 	@mkdir -p ${BIN_DIR}
@@ -29,12 +32,16 @@ format:
 
 .PHONY: info
 info:
-	@echo "VER      =	0.1.0"
-	@echo "CC       =	${CC}"
-	@echo "CXX      =	${CXX}"
-	@echo "ARCH     =	${ARCH}"
-	@echo "KERNEL   =	${KERNEL}"
-	@echo "IMAGE    =	${IMAGE}"
-	@echo "BIN      =	${BIN_DIR}"
-	@echo "QEMU     =	${QEMU}"
+	@echo "VER        =	0.1.0"
+	@echo "HOST_OS    =	${HOST_OS}"
+	@echo "HOST_ARCH  =	${HOST_ARCH}"
+	@echo "CC         =	${CC}"
+	@echo "CXX        =	${CXX}"
+	@echo "ARCH       =	${ARCH}"
+	@echo "KERNEL     =	${KERNEL}"
+	@echo "IMAGE      =	${IMAGE}"
+	@echo "BIN        =	${BIN_DIR}"
+	@echo "QEMU       =	${QEMU}"
+	@echo "OPTIONS    =	${OPTIONS}"
+	@echo "DEFINES    =	${DEFINES}"
 

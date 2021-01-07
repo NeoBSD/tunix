@@ -120,7 +120,7 @@ int fctprintf(void (*out)(char character, void* arg), void* arg,
 /**
  * @brief Kernel mode assertion macro.
  */
-#if defined(TUNIX_OPT_KERNEL_ASSERT)
+#if defined(TUNIX_ENABLE_KASSERT)
 #define TNX_KASSERT(pred)                                                      \
   do {                                                                         \
     if (!(pred))                                                               \
