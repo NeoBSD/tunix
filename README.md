@@ -73,14 +73,14 @@ SUM:                            50            553           1414           2371
 - [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
 - [Harvard: OS161 Kernel (good Makefile build-system)](https://github.com/haisano/OS161-kernel)
 - [GNU Assembler: Examples](https://cs.lmu.edu/~ray/notes/gasexamples/)
-
-### YouTube
-
-- [FreeBSD Kernel Internals, Dr. Marshall Kirk McKusick](https://www.youtube.com/watch?v=nwbqBdghh6E)
-- [Fast IPC: L4 and Fast Interprocess Communication](https://www.youtube.com/watch?v=mRr1lCJse_I)
-- [Preemptive Scheduling: How to Share a Processor](https://www.youtube.com/watch?v=1hDCouuvers)
-- [Virtual Memory in the x86](https://www.youtube.com/watch?v=jkGZDb3100Q)
-- [Modern Page Tables: Multi-Level Paging](https://www.youtube.com/watch?v=pCgw4Pe-5jo)
+- [GNU Assembler: Syntax](https://en.wikibooks.org/wiki/X86_Assembly/GAS_Syntax)
+- [YouTube: FreeBSD Kernel Internals, Dr. Marshall Kirk McKusick](https://www.youtube.com/watch?v=nwbqBdghh6E)
+- [YouTube: Fast IPC: L4 and Fast Interprocess Communication](https://www.youtube.com/watch?v=mRr1lCJse_I)
+- [YouTube: Preemptive Scheduling: How to Share a Processor](https://www.youtube.com/watch?v=1hDCouuvers)
+- [YouTube: Virtual Memory in the x86](https://www.youtube.com/watch?v=jkGZDb3100Q)
+- [YouTube: Modern Page Tables: Multi-Level Paging](https://www.youtube.com/watch?v=pCgw4Pe-5jo)
+- [YouTube: Virtual Memory (Playlist)](https://www.youtube.com/playlist?list=PLiwt1iVUib9s2Uo5BeYmwkDFUh70fJPxX)
+- [YouTube: MIT OpenCourseWare (Playlist)](https://www.youtube.com/watch?v=R0tFDXBZvKI&list=PLUl4u3cNGP62WVs95MNq3dQBqY2vGOtQ2)
 
 ### BSD Source Code
 
@@ -88,7 +88,16 @@ SUM:                            50            553           1414           2371
 - [FreeBSD](https://github.com/freebsd/freebsd-src)
 - [NetBSD](https://github.com/NetBSD/src)
 - [Minix (3.1.8 latest without NetBSD userland)](https://github.com/Stichting-MINIX-Research-Foundation/minix/tree/R3.1.8)
+- [4.4BSD-Lite2](https://github.com/sergev/4.4BSD-Lite2)
 
 ### RISCV
 
 - [Boot sequence: riscv-linux-boot](https://github.com/ultraembedded/riscv-linux-boot)
+
+### x86
+
+- [x86: Bare Metal Examples](https://github.com/cirosantilli/x86-bare-metal-examples)
+
+### MISC
+
+- [linux-kernel-module-cheat](https://github.com/cirosantilli/linux-kernel-module-cheat)
