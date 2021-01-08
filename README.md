@@ -72,6 +72,7 @@ SUM:                            50            553           1414           2371
 
 - [The little book about OS development (x86)](https://littleosbook.github.io/)
 - [github.com/cfenollosa/os-tutorial (x86)](https://github.com/cfenollosa/os-tutorial)
+- [How to Make a Computer Operating System](https://github.com/SamyPesse/How-to-Make-a-Computer-Operating-System)
 - [Writing a Simple Operating System from Scratch](https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf)
 - [Harvard: OS161 Kernel (good Makefile build-system)](https://github.com/haisano/OS161-kernel)
 - [GNU Assembler: Examples](https://cs.lmu.edu/~ray/notes/gasexamples/)

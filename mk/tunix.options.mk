@@ -23,6 +23,7 @@ FREESTANDING += -fno-builtin
 FREESTANDING += -fno-strict-aliasing
 FREESTANDING += -fno-stack-protector
 FREESTANDING += -nostdinc
+FREESTANDING += -nostdinc++
 
 DEFINES += -DTUNIX
 DEFINES += $(addprefix -DTUNIX_ENABLE_, ${OPTIONS})
