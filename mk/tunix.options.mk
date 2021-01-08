@@ -17,6 +17,8 @@ COMMON += -Wextra
 COMMON += -Wpedantic
 
 FREESTANDING += -ffreestanding
+FREESTANDING += -ffunction-sections
+FREESTANDING += -fdata-sections
 FREESTANDING += -fno-builtin
 FREESTANDING += -fno-strict-aliasing
 FREESTANDING += -fno-stack-protector
@@ -40,8 +42,9 @@ CXXFLAGS += -fno-exceptions
 CXXFLAGS += -fno-rtti
 CXXFLAGS += -fno-threadsafe-statics
 
-LDFLAGS += -nodefaultlibs
 LDFLAGS += -nostdlib
 LDFLAGS += -nostartfiles
+LDFLAGS += -nodefaultlibs
 LDFLAGS += -Wl,--no-undefined
-
+LDFLAGS += -Wl,--nmagic
+LDFLAGS += -Wl,--gc-sections
