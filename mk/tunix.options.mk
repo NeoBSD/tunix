@@ -5,7 +5,6 @@ COMMON += -Og
 COMMON += -g
 else
 COMMON += -O2
-# COMMON += -flto
 endif
 
 COMMON += -static
@@ -29,6 +28,8 @@ DEFINES += -DTUNIX
 DEFINES += $(addprefix -DTUNIX_ENABLE_, ${OPTIONS})
 
 INCLUDES += -I${TOP}/sys
+
+ASMFLAGS += -x assembler-with-cpp
 
 CFLAGS += -std=c99
 CFLAGS += ${FREESTANDING}
