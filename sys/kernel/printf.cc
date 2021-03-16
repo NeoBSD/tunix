@@ -608,7 +608,8 @@ static size_t _etoa(out_fct_type out, char* buffer, size_t idx, size_t maxlen,
 
 // internal vsnprintf
 static int vsnprintf(out_fct_type out, char* buffer, const size_t maxlen,
-                     const char* format, const va_list va)
+                     const char* format,
+                     va_list va)  // NOLINT(readability-non-const-parameter)
 {
   unsigned int flags;
   unsigned int width;
