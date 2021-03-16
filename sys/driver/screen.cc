@@ -88,8 +88,8 @@ void set_cursor_offset(int offset)
  */
 int print_char(char c, int col, int row, char attr)
 {
-  uint8_t* vidmem = (uint8_t*)VIDEO_ADDRESS;
-  if (!attr) attr = WHITE_ON_BLACK;
+  auto* vidmem = (uint8_t*)VIDEO_ADDRESS;
+  if (attr == 0) { attr = WHITE_ON_BLACK; }
 
   /* Error control: print a red 'E' if the coords aren't right */
   if (col >= MAX_COLS || row >= MAX_ROWS)
@@ -100,10 +100,11 @@ int print_char(char c, int col, int row, char attr)
   }
 
   int offset;
-  if (col >= 0 && row >= 0)
-    offset = get_offset(col, row);
+  if (col >= 0 && row >= 0) { offset = get_offset(col, row); }
   else
+  {
     offset = get_cursor_offset();
+  }
 
   if (c == '\n')
   {
@@ -127,13 +128,15 @@ int print_char(char c, int col, int row, char attr)
   {
     int i;
     for (i = 1; i < MAX_ROWS; i++)
+    {
       kmemcpy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
               (uint8_t*)(get_offset(0, i - 1) + VIDEO_ADDRESS), MAX_COLS * 2);
+    }
 
     /* Blank last line */
     char* last_line
         = (char*)(get_offset(0, MAX_ROWS - 1) + (uint8_t*)VIDEO_ADDRESS);
-    for (i = 0; i < MAX_COLS * 2; i++) last_line[i] = 0;
+    for (i = 0; i < MAX_COLS * 2; i++) { last_line[i] = 0; }
 
     offset -= 2 * MAX_COLS;
   }
@@ -146,8 +149,7 @@ void kprint_at(char const* message, int col, int row)
 {
   /* Set cursor if col/row are negative */
   int offset;
-  if (col >= 0 && row >= 0)
-    offset = get_offset(col, row);
+  if (col >= 0 && row >= 0) { offset = get_offset(col, row); }
   else
   {
     offset = get_cursor_offset();

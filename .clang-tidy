@@ -1,0 +1,5 @@
+Checks:          '*-,boost-*,bugprone-*,-bugprone-macro-parentheses,-bugprone-narrowing-conversions,cert-*,-cert-oop54-cpp,-cert-err58-cpp,clang-analyzer-*,concurrency-*,hicpp-*,-hicpp-avoid-c-arrays,-hicpp-uppercase-literal-suffix,-hicpp-signed-bitwise,-hicpp-no-assembler,-hicpp-special-member-functions,-hicpp-vararg,-hicpp-no-array-decay,modernize-*,-modernize-avoid-c-arrays,-modernize-use-trailing-return-type,performance-*,readability-*,-readability-uppercase-literal-suffix,-readability-magic-numbers,-readability-const-return-type,-readability-function-cognitive-complexity'
+WarningsAsErrors: '*'
+AnalyzeTemporaryDtors: false
+FormatStyle:     none
+...

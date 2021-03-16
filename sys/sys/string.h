@@ -62,7 +62,7 @@ char* strcat(char* dest, char const* src);
  * that differ in the strings being compared. The behavior is undefined if
  * \param lhs or \param rhs are not pointers to null-terminated strings.
  */
-TNX_NODISCARD int strcmp(char const* lhs, char const* rhs);
+TNX_NODISCARD int strcmp(char const* s1, char const* s2);
 
 /**
  * @brief Returns true, if the given string \param str begins

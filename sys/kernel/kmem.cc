@@ -34,7 +34,7 @@ void kmemcpy(uint8_t const* source, uint8_t* dest, int nbytes)
 
 void kmemset(uint8_t* dest, uint8_t val, uint32_t len)
 {
-  uint8_t* temp = (uint8_t*)dest;
+  auto* temp = (uint8_t*)dest;
   for (; len != 0; len--) { *temp++ = val; }
 }
 
@@ -65,14 +65,14 @@ auto free_mem_addr = uintptr_t {0x10000};
 void* kmalloc(size_t size, int align, uintptr_t* phys_addr)
 {
   // Pages are aligned to 4K, or 0x1000
-  if (align == 1 && (free_mem_addr & 0xFFFFF000))
+  if (align == 1 && ((free_mem_addr & 0xFFFFF000) != 0u))
   {
     free_mem_addr &= 0xFFFFF000;
     free_mem_addr += 0x1000;
   }
 
   // Save also the physical address
-  if (phys_addr) { *phys_addr = free_mem_addr; }
+  if (phys_addr != nullptr) { *phys_addr = free_mem_addr; }
 
   // Remember to increment the pointer
   auto const ret = free_mem_addr;

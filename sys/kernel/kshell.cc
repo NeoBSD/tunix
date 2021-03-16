@@ -38,20 +38,20 @@
 
 namespace
 {
-void ls_entry_point(char const*);
-void man_entry_point(char const*);
-void malloc_entry_point(char const*);
+void ls_entry_point(char const* /*unused*/);
+void man_entry_point(char const* /*input*/);
+void malloc_entry_point(char const* /*unused*/);
 
 constexpr kshell_command commands[] = {
     kshell_command {
         "CLEAR",
         "clear display",
-        [](char const*) { clear_screen(); },
+        [](char const* /*unused*/) { clear_screen(); },
     },
     kshell_command {
         "COPYRIGHT",
         "print copyright",
-        [](char const*) { kprint(TUNIX_COPYRIGHT); },
+        [](char const* /*unused*/) { kprint(TUNIX_COPYRIGHT); },
     },
     kshell_command {
         "ECHO",
@@ -61,7 +61,7 @@ constexpr kshell_command commands[] = {
     kshell_command {
         "FALSE",
         "test kernel assertions",
-        [](char const*) { TNX_KASSERT(1 == 2); },
+        [](char const* /*unused*/) { TNX_KASSERT(1 == 2); },
     },
     kshell_command {
         "LS",
@@ -81,7 +81,7 @@ constexpr kshell_command commands[] = {
     kshell_command {
         "SHUTDOWN",
         "shutdown the system",
-        [](char const*) {
+        [](char const* /*unused*/) {
           kprint("Bye!\n");
           cpu_halt();
         },
@@ -89,21 +89,21 @@ constexpr kshell_command commands[] = {
     kshell_command {
         "TRUE",
         "test kernel assertions.",
-        [](char const*) { TNX_KASSERT(true); },
+        [](char const* /*unused*/) { TNX_KASSERT(true); },
     },
     kshell_command {
         "UNAME",
         "print os name",
-        [](char const*) { kprint("tunix\n"); },
+        [](char const* /*unused*/) { kprint("tunix\n"); },
     },
     kshell_command {
         "VERSION",
         "print os version",
-        [](char const*) { printf("%s\n", TNX_VERSION_STRING); },
+        [](char const* /*unused*/) { printf("%s\n", TNX_VERSION_STRING); },
     },
 };
 
-void ls_entry_point(char const*)
+void ls_entry_point(char const* /*unused*/)
 {
   for (auto const& cmd : commands) { printf("%s\n", cmd.token); }
 }
@@ -118,7 +118,7 @@ void man_entry_point(char const* input)
   }
 }
 
-void malloc_entry_point(char const*)
+void malloc_entry_point(char const* /*unused*/)
 {
   auto phys_addr   = uintptr_t {0};
   auto const size  = uint32_t {1000};

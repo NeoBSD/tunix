@@ -77,7 +77,8 @@ int sprintf(char* buffer, char const* format, ...) TNX_PRINTF_FUNC(2, 3);
  * than num indicates truncation. Only when the returned value is non-negative
  * and less than num, the string has been completely written.
  */
-int snprintf(char* buf, size_t num, char const* fmt, ...) TNX_PRINTF_FUNC(3, 4);
+int snprintf(char* buf, size_t count, char const* format, ...)
+    TNX_PRINTF_FUNC(3, 4);
 
 /**
  * @brief vsnprintf implementation
@@ -92,7 +93,7 @@ int snprintf(char* buf, size_t num, char const* fmt, ...) TNX_PRINTF_FUNC(3, 4);
  * than num indicates truncation. Only when the returned value is non-negative
  * and less than num, the string has been completely written.
  */
-int vsnprintf(char* buf, size_t num, char const* fmt, va_list va);
+int vsnprintf(char* buf, size_t count, char const* format, va_list va);
 
 /**
  * @brief vprintf implementation
